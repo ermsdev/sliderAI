@@ -1,17 +1,13 @@
 //
-//  main.cpp
+//  sliderai.h
 //  SliderAI
 //
 //  Created by Stephen on 2/20/17.
 //  Copyright © 2017 Stephen. All rights reserved.
 //
 
-#include <iostream>
-using namespace std;
+#ifndef sliderai_h
+#define sliderai_h
 
-int main( ) {
-    
-    
-    
-    return 0;
-}
+
+#endif /* sliderai_h */
