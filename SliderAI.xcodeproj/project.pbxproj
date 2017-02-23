@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC0EEE331E5D2D6700E2AC47 /* sliderai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC0EEE321E5D2D6700E2AC47 /* sliderai.cpp */; };
 		DC41E4A41E5C03BC0080DFB3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC41E4A31E5C03BC0080DFB3 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,8 +24,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DC0EEE321E5D2D6700E2AC47 /* sliderai.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sliderai.cpp; path = ../../sliderAI/SliderAI/sliderai.cpp; sourceTree = "<group>"; };
 		DC41E4A01E5C03BC0080DFB3 /* SliderAI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SliderAI; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC41E4A31E5C03BC0080DFB3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DCD7E9071E5C0D330037FD6B /* sliderai.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sliderai.h; path = ../../sliderAI/SliderAI/sliderai.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,8 @@
 			isa = PBXGroup;
 			children = (
 				DC41E4A31E5C03BC0080DFB3 /* main.cpp */,
+				DCD7E9071E5C0D330037FD6B /* sliderai.h */,
+				DC0EEE321E5D2D6700E2AC47 /* sliderai.cpp */,
 			);
 			path = SliderAI;
 			sourceTree = "<group>";
@@ -120,6 +125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC0EEE331E5D2D6700E2AC47 /* sliderai.cpp in Sources */,
 				DC41E4A41E5C03BC0080DFB3 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +255,7 @@
 				DC41E4A91E5C03BC0080DFB3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
