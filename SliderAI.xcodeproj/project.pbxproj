@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93E52AC81E611FC600D3D3A6 /* sliderai_functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93E52AC71E611FC600D3D3A6 /* sliderai_functions.cpp */; };
 		DC0EEE331E5D2D6700E2AC47 /* sliderai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC0EEE321E5D2D6700E2AC47 /* sliderai.cpp */; };
 		DC41E4A41E5C03BC0080DFB3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC41E4A31E5C03BC0080DFB3 /* main.cpp */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		93E52AC61E611FB000D3D3A6 /* sliderai_functions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sliderai_functions.h; sourceTree = "<group>"; };
+		93E52AC71E611FC600D3D3A6 /* sliderai_functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sliderai_functions.cpp; sourceTree = "<group>"; };
 		DC0EEE321E5D2D6700E2AC47 /* sliderai.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sliderai.cpp; path = ../../sliderAI/SliderAI/sliderai.cpp; sourceTree = "<group>"; };
 		DC41E4A01E5C03BC0080DFB3 /* SliderAI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SliderAI; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC41E4A31E5C03BC0080DFB3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -62,6 +65,8 @@
 			children = (
 				DC41E4A31E5C03BC0080DFB3 /* main.cpp */,
 				DCD7E9071E5C0D330037FD6B /* sliderai.h */,
+				93E52AC61E611FB000D3D3A6 /* sliderai_functions.h */,
+				93E52AC71E611FC600D3D3A6 /* sliderai_functions.cpp */,
 				DC0EEE321E5D2D6700E2AC47 /* sliderai.cpp */,
 			);
 			path = SliderAI;
@@ -125,6 +130,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93E52AC81E611FC600D3D3A6 /* sliderai_functions.cpp in Sources */,
 				DC0EEE331E5D2D6700E2AC47 /* sliderai.cpp in Sources */,
 				DC41E4A41E5C03BC0080DFB3 /* main.cpp in Sources */,
 			);

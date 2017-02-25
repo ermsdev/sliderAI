@@ -49,6 +49,7 @@ void board::coutLayout(){
     cout << endl;
 }
 
+
 /*
 int* listMoves(){
     layout[]
