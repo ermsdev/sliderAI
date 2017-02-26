@@ -22,19 +22,14 @@ void board_score(const vector< vector < int > > &target_board, const vector< vec
         for(int column = 0; column < numColumns; column++){
             target = target_board[row][column];
             cout << "Current target: " << target << endl;
-            
-            //while((current != target)){
-                for(seekRow = 0; seekRow < numRows; seekRow++){
-                    for(seekColumn = 0; seekColumn < numColumns; seekColumn++){
-                        if(current_board[seekRow][seekColumn] == target){
-                            current = current_board[seekRow][seekColumn];
-                            score += abs(row - seekRow) + abs(column - seekColumn);
-                        }
+            for(seekRow = 0; seekRow < numRows; seekRow++){
+                for(seekColumn = 0; seekColumn < numColumns; seekColumn++){
+                    if(current_board[seekRow][seekColumn] == target){
+                        current = current_board[seekRow][seekColumn];
+                        score += abs(row - seekRow) + abs(column - seekColumn);
                     }
                 }
-                //current = current_board[seekRow][seekColumn];
-            //}
-            //score += current_board[seekRow][seekColumn] * (abs((row - seekRow)) + abs((column - seekColumn)));
+            }
         }
     }
     cout << "Total score: " << score << endl;
