@@ -23,27 +23,39 @@ int main( ) {
     
     map<int, tile> boardstart;
     //boardstart[key] = tile(row, column) ?
-    boardstart[7] = tile(1,1);
-    boardstart[2] = tile(1,2);
-    boardstart[3] = tile(1,3);
-    boardstart[4] = tile(2,1);
+    boardstart[1] = tile(1,1);
+    boardstart[0] = tile(1,2);
+    boardstart[2] = tile(1,3);
+    boardstart[8] = tile(2,1);
     boardstart[5] = tile(2,2);
-    boardstart[6] = tile(2,3);
-    boardstart[1] = tile(3,1);
-    boardstart[8] = tile(3,2);
-    boardstart[9] = tile(3,3);
+    boardstart[4] = tile(2,3);
+    boardstart[6] = tile(3,1);
+    boardstart[7] = tile(3,2);
+    boardstart[3] = tile(3,3);
+    
+    /*
+    for(int i = 0; i < boardstart.size(); i++){
+        cout << "Row: " << boardstart[i].row << " Column: " << boardstart[i].column << endl;
+    }
+    */
     
     
     map<int, tile> boardend;
-    boardend[1] = tile(1,1);
-    boardend[2] = tile(1,2);
-    boardend[3] = tile(1,3);
-    boardend[4] = tile(2,1);
-    boardend[5] = tile(2,2);
-    boardend[6] = tile(2,3);
-    boardend[7] = tile(3,1);
-    boardend[8] = tile(3,2);
-    boardend[9] = tile(3,3);
+    boardend[0] = tile(1,1);
+    boardend[1] = tile(1,2);
+    boardend[2] = tile(1,3);
+    boardend[3] = tile(2,1);
+    boardend[4] = tile(2,2);
+    boardend[5] = tile(2,3);
+    boardend[6] = tile(3,1);
+    boardend[7] = tile(3,2);
+    boardend[8] = tile(3,3);
+    
+    /*
+    for(int i = 0; i < boardend.size(); i++){
+        cout << "Row: " << boardend[i].row << " Column: " << boardend[i].column << endl;
+    }
+    */
     
     int score = 0;
     board_map_score(boardstart, boardend, score);
