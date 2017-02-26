@@ -8,15 +8,17 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <map>
 #include "sliderai_functions.h"
+
 
 using namespace std;
 
 void board_score(const vector< vector < int > > &target_board, const vector< vector < int > > current_board, const int numRows, const int numColumns, int &score){
-    int target = 0; // stores the variable to hunt for here
-    int current = 0; // stores the present value in the curren_board here
-    int seekRow = 0; // searching through the 'current' board
-    int seekColumn = 0; // ^
+    int target = 0; //! stores the variable to hunt for here
+    int current = 0; //! stores the present value in the curren_board here
+    int seekRow = 0; //! searching through the 'current' board
+    int seekColumn = 0; //! searching through the 'current' board
     score = 0; // Stores the total 'score' here
     for(int row = 0; row < numRows; row++){
         for(int column = 0; column < numColumns; column++){
@@ -33,4 +35,21 @@ void board_score(const vector< vector < int > > &target_board, const vector< vec
         }
     }
     cout << "Total score: " << score << endl;
+}
+
+void board_map_score(map<int, tile> &mapCurrent, map<int, tile> &mapTarget, int &score){
+    score = 0;
+    for(int i = 0; i < mapTarget.size(); i++){
+        //int temp = mapCurrent.find(2);
+        //cout << mapCurrent.find(1)->second.row;
+        
+        
+        //auto search = mapCurrent.find(2);
+        auto search = mapCurrent.find(i); //! We currently can't skip around (not sure how to access key value), see following line
+        //auto search = mapCurrent.find(mapTarget.at(i)); // how to do this?
+        //tile test = mapCurrent.find(1);
+        score += abs(mapTarget[i].row - mapCurrent[search->first].row) + abs(mapTarget[i].column - mapTarget[search->first].column);
+        //score += abs(mapTarget[i].row - mapCurrent[search].row) + abs(mapTarget[i].column - mapTarget[search].column);
+        //score += abs(mapTarget[i].row - mapCurrent[search->first].row);
+    }
 }
