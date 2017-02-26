@@ -7,7 +7,10 @@
 //
 
 #include <stdio.h>
+#include <iostream>
 #include "sliderai_functions.h"
+
+using namespace std;
 
 void board_score(const vector< vector < int > > &target_board, const vector< vector < int > > current_board, const int numRows, const int numColumns, int &score){
     int target = 0; // stores the variable to hunt for here
@@ -18,21 +21,21 @@ void board_score(const vector< vector < int > > &target_board, const vector< vec
     for(int row = 0; row < numRows; row++){
         for(int column = 0; column < numColumns; column++){
             target = target_board[row][column];
+            cout << "Current target: " << target << endl;
             
-            while((current != target)){
-                if((seekColumn == numColumns) && (seekRow == numRows)){
-                    cout << "Error: reached end of input" << endl;
+            //while((current != target)){
+                for(seekRow = 0; seekRow < numRows; seekRow++){
+                    for(seekColumn = 0; seekColumn < numColumns; seekColumn++){
+                        if(current_board[seekRow][seekColumn] == target){
+                            current = current_board[seekRow][seekColumn];
+                            score += abs(row - seekRow) + abs(column - seekColumn);
+                        }
+                    }
                 }
-                if(seekColumn < numColumns){
-                    seekColumn++;
-                }
-                else{
-                    seekColumn = 0;
-                    seekRow++;
-                }
-                current = current_board[seekRow][seekColumn];
-            }
-            score += current_board[seekRow][seekColumn] * (abs((row - seekRow)) + abs((column - seekColumn)));
+                //current = current_board[seekRow][seekColumn];
+            //}
+            //score += current_board[seekRow][seekColumn] * (abs((row - seekRow)) + abs((column - seekColumn)));
         }
     }
+    cout << "Total score: " << score << endl;
 }
