@@ -13,6 +13,21 @@
 
 using namespace std;
 
+//declaring static goal
+
+
+map <int, tile> board::goal {
+    {0, tile(1,1)},
+    {1, tile(1,2)},
+    {2, tile(1,3)},
+    {3, tile(2,1)},
+    {4, tile(2,2)},
+    {5, tile(2,3)},
+    {6, tile(3,1)},
+    {7, tile(3,2)},
+    {8, tile(3,3)},
+};
+
 int main( ) {
     
     // testing stuff
@@ -21,6 +36,23 @@ int main( ) {
     //tile tz = {1,1};
     //map<int,char> example = {{1,'a'},{2,'b'}};
     
+    //priority_queue
+    priority_queue<board, deque<board>, compareBoards> boardList;
+    
+    int size = 9;
+    int startLayout[] = {1,0,2,8,5,4,6,7,3};
+    int endLayout[] = {1,2,3,4,5,6,7,8,0};
+    
+    board boardStart(startLayout, size);
+    board boardEnd(endLayout, size);
+    
+    boardList.push(boardStart);
+    boardList.push(boardEnd);
+    
+    
+    
+    
+    /*
     map<int, tile> boardstart;
     //boardstart[key] = tile(row, column) ?
     boardstart[1] = tile(1,1);
@@ -33,11 +65,11 @@ int main( ) {
     boardstart[7] = tile(3,2);
     boardstart[3] = tile(3,3);
     
-    /*
+    /////
     for(int i = 0; i < boardstart.size(); i++){
         cout << "Row: " << boardstart[i].row << " Column: " << boardstart[i].column << endl;
     }
-    */
+    /////
     
     
     map<int, tile> boardend;
@@ -51,17 +83,17 @@ int main( ) {
     boardend[7] = tile(3,2);
     boardend[8] = tile(3,3);
     
-    /*
+    /////
     for(int i = 0; i < boardend.size(); i++){
         cout << "Row: " << boardend[i].row << " Column: " << boardend[i].column << endl;
     }
-    */
+    /////
     
     int score = 0;
     board_map_score(boardstart, boardend, score);
     cout << score << endl;
     
-    /*
+    /////
     boardstart[2] = tile(2,1,2);
     boardstart[3] = tile(3,1,1);
     boardstart[4] = tile(4,1,3);

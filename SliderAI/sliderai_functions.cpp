@@ -3,7 +3,6 @@
 //  SliderAI
 //
 //  Created by Aaron Covrig on 2/24/17.
-//  Copyright © 2017 Stephen. All rights reserved.
 //
 
 #include <stdio.h>
