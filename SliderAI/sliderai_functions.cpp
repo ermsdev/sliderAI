@@ -41,27 +41,10 @@ void board_score(const vector< vector < int > > &target_board, const vector< vec
 void board_map_score(map<int, tile> &mapCurrent, map<int, tile> &mapTarget, int &score){
     score = 0;
     for(int i = 0; i < mapTarget.size(); i++){
-        //int temp = mapCurrent.find(2);
-        //cout << mapCurrent.find(1)->second.row;
-        
-        
-        //auto search = mapCurrent.find(2);
+
         auto search = mapCurrent.find(i); //! We currently can't skip around (not sure how to access key value), see following line
-        //auto search = mapCurrent.find(mapTarget.at(i)); // how to do this?
-        //tile test = mapCurrent.find(1);
+
         score += abs(mapTarget[i].row - mapCurrent[search->first].row) + abs(mapTarget[i].column - mapCurrent[search->first].column);
-        //score += ((mapTarget[i].row - mapCurrent[search->first].row) * (mapTarget[i].row - mapCurrent[search->first].row) + (mapTarget[i].column - mapTarget[search->first].column) * (mapTarget[i].column - mapTarget[search->first].column));
-        /*
-        cout << "Search value: " << search->first << endl;
-        cout << "Item row number: " << mapCurrent[search->first].row << endl;
-        cout << "Target row number: " << mapTarget[search->first].row << endl;
-        cout << "Item column number: " << mapCurrent[search->first].column << endl;
-        cout << "Target column number: " << mapTarget[search->first].column << endl;
-        cout << (abs(mapTarget[i].row - mapCurrent[search->first].row) + abs(mapTarget[i].column - mapCurrent[search->first].column)) << endl;
-        */
-        
-        //score += abs(mapTarget[i].row - mapCurrent[search].row) + abs(mapTarget[i].column - mapTarget[search].column);
-        //score += abs(mapTarget[i].row - mapCurrent[search->first].row);
     }
     cout << score << endl;
 }
