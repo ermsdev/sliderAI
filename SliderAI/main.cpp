@@ -10,12 +10,10 @@
 #include "sliderai.h"
 #include "sliderai_functions.h"
 
-
 using namespace std;
 
-//declaring static goal
 
-
+//declaring static goal, can this be done in runtime?
 map <int, tile> board::goal {
     {0, tile(1,1)},
     {1, tile(1,2)},
@@ -31,12 +29,12 @@ map <int, tile> board::goal {
 int main( ) {
     
     // testing stuff
-    //vector<vector <int > > boardstart = {{2,1,3},{4,5,6},{7,8,9}};
-    //vector<vector <int > > boardend = {{1,2,3},{4,5,6},{7,8,9}};
-    //tile tz = {1,1};
-    //map<int,char> example = {{1,'a'},{2,'b'}};
+    // vector<vector <int > > boardstart = {{2,1,3},{4,5,6},{7,8,9}};
+    // vector<vector <int > > boardend = {{1,2,3},{4,5,6},{7,8,9}};
+    // tile tz = {1,1};
+    // map<int,char> example = {{1,'a'},{2,'b'}};
     
-    //priority_queue
+    // priority_queue
     priority_queue<board, deque<board>, compareBoards> boardList;
     
     int size = 9;
