@@ -9,18 +9,6 @@
 
 using namespace std;
 
-void targetSearch(const int &targetValue, const vector<vector <int > > &searchBoard, const int &num_rows, const int &num_columns, tile &blankTile){
-    for(int i = 0; i < num_rows; i++){
-        for(int j = 0; j < num_columns; j++){
-            if(searchBoard[i][j] == targetValue){
-                blankTile.row = i;
-                blankTile.column = j;
-                return;
-            }
-        }
-    }
-}
-
 int main( ) {
     
     // testing stuff
@@ -29,8 +17,8 @@ int main( ) {
     
     tile blankTile(0,0); //! Declairing the location of the empty tile to save time
     
-    vector<vector <int > > boardstart = {{1,2,3},{4,5,0},{7,8,6}};
-    vector<vector <int > > boardend = {{1,2,3},{4,5,6},{7,8,0}};
+    vector<vector <int > > boardstart = {{1,2,3},{0,5,6},{4,7,8}};
+    vector<vector <int > > boardend = {{1,2,3},{4,5,6},{0,7,8}};
     
     targetSearch(0, boardstart, num_rows, num_columns, blankTile);
     
@@ -44,6 +32,7 @@ int main( ) {
     int scoreStart = board_score(boardstart, boardend, num_rows, num_columns);
     int scoreNXT = board_score(betterchild, boardend, num_rows, num_columns);
     
+    /*
     cout << "Starting score = " << scoreStart << endl;
     cout << "Next score = " << scoreNXT << endl;
     
@@ -56,7 +45,21 @@ int main( ) {
     cout << "Next board: " << endl;
     printBoard(betterchild, num_rows, num_columns);
     cout << endl;
+    */
     
+    
+    // more tests
+    /*
+    vector<vector <int > > board1 = {{1,2,3},{4,5,0},{7,8,6}};
+    vector<vector <int > > board2 = {{1,2,3},{4,5,6},{7,8,0}};
+    vector<vector <int > > board3 = {{1,2,3},{4,5,6},{7,8,0}};
+    
+    int score1 = board_score(board1, board3, num_rows, num_columns);
+    int score2 = board_score(board2, board3, num_rows, num_columns);
+    
+    cout << "Score 1: " << score1 << endl;
+    cout << "Score 2: " << score2 << endl;
+    */
     //int rootLayout[9] = {1,0,2,4,6,3,7,5,8}; //solvable in <10 moves, index = boardPosition
     
     //board tb1(rootLayout, 1);

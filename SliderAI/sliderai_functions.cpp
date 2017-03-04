@@ -41,6 +41,18 @@ int board_score(const vector< vector < int > > &target_board, const vector< vect
     return(score);
 }
 
+void targetSearch(const int &targetValue, const vector<vector <int > > &searchBoard, const int &num_rows, const int &num_columns, tile &blankTile){
+    for(int i = 0; i < num_rows; i++){
+        for(int j = 0; j < num_columns; j++){
+            if(searchBoard[i][j] == targetValue){
+                blankTile.row = i;
+                blankTile.column = j;
+                return;
+            }
+        }
+    }
+}
+
 //! \brief This function is used to mutate and select the best child
 //
 // The matrix layout is as follows:
@@ -57,20 +69,20 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
         if(blankTile.row == 0){ //! Spawn 2 children, right and down
             vector< vector < int > > childRIGHT;
             tile swapRIGHT = blankTile;
-            swapRIGHT.column = blankTile.column++;
+            swapRIGHT.column = blankTile.column + 1;
             spawnChild(current_board, childRIGHT, blankTile, swapRIGHT);
             
             vector< vector < int > > childDOWN;
             tile swapDOWN = blankTile;
-            swapDOWN.row = blankTile.row++;
+            swapDOWN.row = blankTile.row + 1;
             spawnChild(current_board, childDOWN, blankTile, swapDOWN);
             
             int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
             int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-            
+            /*
             cout << "scoreRight = " << scoreRIGHT << endl;
             cout << "scoreDown = " << scoreDOWN << endl;
-            
+            */
             if(scoreRIGHT < scoreDOWN){
                 bestChild = childRIGHT;
                 blankTile = swapRIGHT;
@@ -88,20 +100,20 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
         else if(blankTile.row == (numRows -1)){ //! Spawn 2 children; right and up
             vector< vector < int > > childRIGHT;
             tile swapRIGHT = blankTile;
-            swapRIGHT.column = blankTile.column++;
+            swapRIGHT.column = blankTile.column + 1;
             spawnChild(current_board, childRIGHT, blankTile, swapRIGHT);
             
             vector< vector < int > > childUP;
             tile swapUP = blankTile;
-            swapUP.row = blankTile.row--;
+            swapUP.row = blankTile.row - 1;
             spawnChild(current_board, childUP, blankTile, swapUP);
             
             int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
             int scoreUP = board_score(target_board, childUP, numRows, numColumns);
-            
+            /*
             cout << "scoreRight = " << scoreRIGHT << endl;
             cout << "scoreUP = " << scoreUP << endl;
-            
+            */
             if(scoreRIGHT < scoreUP){
                 bestChild = childRIGHT;
                 blankTile = swapRIGHT;
@@ -119,27 +131,27 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
         else{ //! Spawn 3 children, right, up, and down
             vector< vector < int > > childRIGHT;
             tile swapRIGHT = blankTile;
-            swapRIGHT.column = blankTile.column++;
+            swapRIGHT.column = blankTile.column + 1;
             spawnChild(current_board, childRIGHT, blankTile, swapRIGHT);
             
             vector< vector < int > > childUP;
             tile swapUP = blankTile;
-            swapUP.row = blankTile.row--;
+            swapUP.row = blankTile.row - 1;
             spawnChild(current_board, childUP, blankTile, swapUP);
             
             vector< vector < int > > childDOWN;
             tile swapDOWN = blankTile;
-            swapDOWN.row = blankTile.row++;
+            swapDOWN.row = blankTile.row + 1;
             spawnChild(current_board, childDOWN, blankTile, swapDOWN);
             
             int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
             int scoreUP = board_score(target_board, childUP, numRows, numColumns);
             int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-            
+            /*
             cout << "scoreRight = " << scoreRIGHT << endl;
             cout << "scoreUp = " << scoreUP << endl;
             cout << "scoreDown = " << scoreDOWN << endl;
-            
+            */
             if((scoreRIGHT < scoreUP) && (scoreRIGHT < scoreDOWN)){
                 bestChild = childRIGHT;
                 blankTile = swapRIGHT;
@@ -164,20 +176,20 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
         if(blankTile.row == 0){ //! Spawn 2 children; left and down
             vector< vector < int > > childLEFT;
             tile swapLEFT = blankTile;
-            swapLEFT.column = blankTile.column--;
+            swapLEFT.column = blankTile.column - 1;
             spawnChild(current_board, childLEFT, blankTile, swapLEFT);
             
             vector< vector < int > > childDOWN;
             tile swapDOWN = blankTile;
-            swapDOWN.row = blankTile.row++;
+            swapDOWN.row = blankTile.row + 1;
             spawnChild(current_board, childDOWN, blankTile, swapDOWN);
             
             int scoreLEFT = board_score(target_board, childLEFT, numRows, numColumns);
             int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-            
+            /*
             cout << "scoreLeft = " << scoreLEFT << endl;
             cout << "scoreDown = " << scoreDOWN << endl;
-            
+            */
             if(scoreLEFT < scoreDOWN){
                 bestChild = childLEFT;
                 blankTile = swapLEFT;
@@ -195,20 +207,20 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
         else if(blankTile.row == (numRows -1)){ //! Spawn 2 children; left and up
             vector< vector < int > > childLEFT;
             tile swapLEFT = blankTile;
-            swapLEFT.column = blankTile.column--;
+            swapLEFT.column = blankTile.column - 1;
             spawnChild(current_board, childLEFT, blankTile, swapLEFT);
             
             vector< vector < int > > childUP;
             tile swapUP = blankTile;
-            swapUP.row = blankTile.row--;
+            swapUP.row = blankTile.row - 1;
             spawnChild(current_board, childUP, blankTile, swapUP);
             
             int scoreLEFT = board_score(target_board, childLEFT, numRows, numColumns);
             int scoreUP = board_score(target_board, childUP, numRows, numColumns);
-            
+            /*
             cout << "scoreLeft = " << scoreLEFT << endl;
             cout << "scoreUp = " << scoreUP << endl;
-            
+            */
             if(scoreLEFT < scoreUP){
                 bestChild = childLEFT;
                 blankTile = swapLEFT;
@@ -226,27 +238,36 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
         else{ //! Spawn 3 children; left, up, and down
             vector< vector < int > > childLEFT;
             tile swapLEFT = blankTile;
-            swapLEFT.column = blankTile.column--;
+            swapLEFT.column = blankTile.column - 1;
             spawnChild(current_board, childLEFT, blankTile, swapLEFT);
             
             vector< vector < int > > childUP;
             tile swapUP = blankTile;
-            swapUP.row = blankTile.row--;
+            swapUP.row = blankTile.row - 1;
             spawnChild(current_board, childUP, blankTile, swapUP);
             
             vector< vector < int > > childDOWN;
             tile swapDOWN = blankTile;
-            swapDOWN.row = blankTile.row++;
+            swapDOWN.row = blankTile.row + 1;
             spawnChild(current_board, childDOWN, blankTile, swapDOWN);
             
             int scoreLEFT = board_score(target_board, childLEFT, numRows, numColumns);
             int scoreUP = board_score(target_board, childUP, numRows, numColumns);
             int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-            
+            /*
             cout << "scoreLeft = " << scoreLEFT << endl;
             cout << "scoreUp = " << scoreUP << endl;
             cout << "scoreDown = " << scoreDOWN << endl;
-            
+            */
+            /*
+            cout << "Left: " << endl;
+            printBoard(childLEFT, numRows, numColumns);
+            cout << "UP: " << endl;
+            printBoard(childUP, numRows, numColumns);
+            cout << "Down: " << endl;
+            printBoard(childDOWN, numRows, numColumns);
+            cout << endl;
+            */
             if((scoreLEFT < scoreUP) && (scoreLEFT < scoreDOWN)){
                 bestChild = childLEFT;
                 blankTile = swapLEFT;
@@ -270,27 +291,27 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
     else if((blankTile.column != 0) && (blankTile.column != numColumns - 1) && (blankTile.row == 0)){ //! spawn 3 children; left, right, down
         vector< vector < int > > childLEFT;
         tile swapLEFT = blankTile;
-        swapLEFT.column = blankTile.column--;
+        swapLEFT.column = blankTile.column - 1;
         spawnChild(current_board, childLEFT, blankTile, swapLEFT);
         
         vector< vector < int > > childRIGHT;
         tile swapRIGHT = blankTile;
-        swapRIGHT.column = blankTile.column++;
+        swapRIGHT.column = blankTile.column + 1;
         spawnChild(current_board, childRIGHT, blankTile, swapRIGHT);
         
         vector< vector < int > > childDOWN;
         tile swapDOWN = blankTile;
-        swapDOWN.row = blankTile.row++;
+        swapDOWN.row = blankTile.row + 1;
         spawnChild(current_board, childDOWN, blankTile, swapDOWN);
         
         int scoreLEFT = board_score(target_board, childLEFT, numRows, numColumns);
         int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
         int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-        
+        /*
         cout << "scoreLeft = " << scoreLEFT << endl;
         cout << "scoreRight = " << scoreRIGHT << endl;
         cout << "scoreDown = " << scoreDOWN << endl;
-        
+        */
         if((scoreLEFT < scoreRIGHT) && (scoreLEFT < scoreDOWN)){
             bestChild = childLEFT;
             blankTile = swapLEFT;
@@ -313,27 +334,27 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
     else if((blankTile.column != 0) && (blankTile.column != numColumns - 1) && (blankTile.row == numRows - 1)){ //! spawn 3 children; left, right, up
         vector< vector < int > > childLEFT;
         tile swapLEFT = blankTile;
-        swapLEFT.column = blankTile.column--;
+        swapLEFT.column = blankTile.column - 1;
         spawnChild(current_board, childLEFT, blankTile, swapLEFT);
         
         vector< vector < int > > childUP;
         tile swapUP = blankTile;
-        swapUP.row = blankTile.row--;
+        swapUP.row = blankTile.row - 1;
         spawnChild(current_board, childUP, blankTile, swapUP);
         
         vector< vector < int > > childRIGHT;
         tile swapRIGHT = blankTile;
-        swapRIGHT.column = blankTile.column++;
+        swapRIGHT.column = blankTile.column + 1;
         spawnChild(current_board, childRIGHT, blankTile, swapRIGHT);
         
         int scoreLEFT = board_score(target_board, childLEFT, numRows, numColumns);
         int scoreUP = board_score(target_board, childUP, numRows, numColumns);
         int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
-        
+        /*
         cout << "scoreLeft = " << scoreLEFT << endl;
         cout << "scoreUp = " << scoreUP << endl;
         cout << "scoreRight = " << scoreRIGHT << endl;
-        
+        */
         if((scoreLEFT < scoreUP) && (scoreLEFT < scoreRIGHT)){
             bestChild = childLEFT;
             blankTile = swapLEFT;
@@ -356,34 +377,34 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
     else{ //! Spawn 4 children; left, right, up, and down
         vector< vector < int > > childRIGHT;
         tile swapRIGHT = blankTile;
-        swapRIGHT.column = blankTile.column++;
+        swapRIGHT.column = blankTile.column + 1;
         spawnChild(current_board, childRIGHT, blankTile, swapRIGHT);
         
         vector< vector < int > > childLEFT;
         tile swapLEFT = blankTile;
-        swapLEFT.column = blankTile.column--;
+        swapLEFT.column = blankTile.column - 1;
         spawnChild(current_board, childLEFT, blankTile, swapLEFT);
         
         vector< vector < int > > childUP;
         tile swapUP = blankTile;
-        swapUP.row = blankTile.row--;
+        swapUP.row = blankTile.row - 1;
         spawnChild(current_board, childUP, blankTile, swapUP);
         
         vector< vector < int > > childDOWN;
         tile swapDOWN = blankTile;
-        swapDOWN.row = blankTile.row++;
+        swapDOWN.row = blankTile.row + 1;
         spawnChild(current_board, childDOWN, blankTile, swapDOWN);
         
         int scoreLEFT = board_score(target_board, childLEFT, numRows, numColumns);
         int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
         int scoreUP = board_score(target_board, childUP, numRows, numColumns);
         int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-        
+        /*
         cout << "scoreLeft = " << scoreLEFT << endl;
         cout << "scoreRight = " << scoreRIGHT << endl;
         cout << "scoreUp = " << scoreUP << endl;
         cout << "scoreDown = " << scoreDOWN << endl;
-        
+        */
         if((scoreRIGHT < scoreLEFT) && (scoreRIGHT < scoreUP) && (scoreRIGHT < scoreDOWN)){
             bestChild = childRIGHT;
             blankTile = swapRIGHT;
