@@ -11,7 +11,7 @@
 #include <string>
 using namespace std;
 
-int main(  )
+int main(int argc, char* argv[])
 {
     // Initialization
     //--------------------------------------------------------------------------------------
@@ -19,12 +19,15 @@ int main(  )
     int screenHeight = 450;
     InitWindow(screenWidth, screenHeight, "SliderAI");
     
-    Color tileColors[18] = { GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY };
+    Color tileColors[9] = { GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY };
+    Color numButtonColors[9] = { GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY };
     
-    Rectangle selectableButtons[18];
-    //Rectangle numberButtons[9];
+    Rectangle selectableButtons[9]; //tiles
+    Rectangle numberButtons[9]; //number buttons
     
-    
+    int tileValues[9] = {0,0,0,0,0,0,0,0,0};
+    int selectedTileIndex = 0;
+
     //board buttons
     for (int i = 0; i < 9; i++)
     {
@@ -34,15 +37,16 @@ int main(  )
         selectableButtons[i].height = 50;
     }
     
-    for (int i = 9; i < 18; i++)
+    //number buttons
+    for (int i = 0; i < 9; i++)
     {
-        selectableButtons[i].x = 20 + 30*(i-9);
-        selectableButtons[i].y = 290;
-        selectableButtons[i].width = 20;
-        selectableButtons[i].height = 20;
+        numberButtons[i].x = 20 + 30*(i);
+        numberButtons[i].y = 290;
+        numberButtons[i].width = 20;
+        numberButtons[i].height = 20;
     }
     
-    bool selectedTile[18] = { false };  // Selected tiles indicator
+    bool selectedTile[9] = { false };  // Selected tiles indicator
     
     Vector2 mousePoint;
     
@@ -59,24 +63,35 @@ int main(  )
         
         mousePoint = GetMousePosition();
         
-        for (int i = 0; i < 9; i++)    // Iterate along all the rectangles
+        for (int i = 0; i < 9; i++)    // Iterate along all the tile rectangles
         {
             if (CheckCollisionPointRec(mousePoint, selectableButtons[i]))
             {
                 tileColors[i].a = 40;
-                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) selectedTile[i] = !selectedTile[i];
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+                    bool beforeSelectedTile = selectedTile[i];
+                    for (int j=0; j<9; j++) {
+                        selectedTile[j] = false;
+                    }
+                    selectedTile[i] = !beforeSelectedTile;
+                    
+                    if(selectedTile[i]) selectedTileIndex = i;
+                    else selectedTileIndex = 9; //invalid value, will do nothing becuase of conditional below (like 11 lines down)
+                }
             }
             else tileColors[i].a = 120;
         }
         
-        for (int i = 9; i < 18; i++)    // Iterate along all the rectangles
+        for (int i = 0; i < 9; i++)    // Iterate along all number button rectangles
         {
-            if (CheckCollisionPointRec(mousePoint, selectableButtons[i]))
+            if (CheckCollisionPointRec(mousePoint, numberButtons[i]))
             {
-                tileColors[i].a = 40;
-                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) selectedTile[i] = !selectedTile[i];
+                numButtonColors[i].a = 40;
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && selectedTileIndex<9) { // <-- that conditional...
+                    tileValues[selectedTileIndex] = i+1;
+                }
             }
-            else tileColors[i].a = 120;
+            else numButtonColors[i].a = 120;
         }
         
         
@@ -94,18 +109,18 @@ int main(  )
         {
             if (selectedTile[i]) tileColors[i].a = 255;
             DrawRectangleRec(selectableButtons[i], tileColors[i]);
+            DrawText((FormatText("%01i", tileValues[i])), selectableButtons[i].x + 21, selectableButtons[i].y + 17, 20, BLUE);
         }
         
         DrawText("Instructions : Click a box in the board above, \nthen click a number from the list below.", 20, 240, 15, BLUE);
         
-        for (int i = 9; i < 18; i++)    // Draw num buttons
+        for (int i = 0; i < 9; i++)    // Draw num buttons
         {
-            if (selectedTile[i]) tileColors[i].a = 255;
-            DrawRectangleRec(selectableButtons[i], tileColors[i]);
-            DrawText(((i != 17) ? (FormatText("%01i", i-8)) : "D"), selectableButtons[i].x + 7, selectableButtons[i].y + 5, 5, BLUE);
+            DrawRectangleRec(numberButtons[i], numButtonColors[i]);
+            DrawText(((i != 8) ? (FormatText("%01i", i+1)) : "D"), numberButtons[i].x + 7, numberButtons[i].y + 5, 5, BLUE);
         }
         
-        DrawText("Click 'D' to remove a value in the board.", 20, 320, 10, BLUE);
+        DrawText("Click 'D' to remove a value in the board. \nif a value is a duplicate, its previous instance will be removed.", 20, 320, 10, BLUE); // this part doesn't work yet...
         
         EndDrawing();
         //----------------------------------------------------------------------------------
