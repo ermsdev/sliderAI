@@ -44,30 +44,21 @@ int board_score(const vector< vector < int > > &target_board, const vector< vect
     return(score);
 }
 
-void targetSearch(const int &targetValue, const vector<vector <int > > &searchBoard, const int &num_rows, const int &num_columns, tile &blankTile){
+void targetSearch(const int &targetValue, const vector<vector <int > > &searchBoard, const int &num_rows, const int &num_columns, tile &foundTile){
     for(int i = 0; i < num_rows; i++){
         for(int j = 0; j < num_columns; j++){
             if(searchBoard[i][j] == targetValue){
-                blankTile.row = i;
-                blankTile.column = j;
+                foundTile.row = i;
+                foundTile.column = j;
                 return;
             }
         }
     }
 }
 
-//! \brief This function is used to mutate and select the best child
-//
-// The matrix layout is as follows:
-//  ROW 1       C C C
-//  ROW 2       O O O
-//  ROW 3       L L L
-//              U U U
-//              M M M
-//              N N N
-//              1 2 3
-//
 void childMutate(const vector< vector < int > > &target_board, const vector< vector < int > > current_board, const int &numRows, const int &numColumns, vector< vector < int > > &bestChild, tile &blankTile){
+    // running through tile arrangements and identifying where the possible tile shifts are
+    // (checking to see if at the edge of a board)
     if(blankTile.column == 0){
         if(blankTile.row == 0){ //! Spawn 2 children, right and down
             vector< vector < int > > childRIGHT;
@@ -436,10 +427,6 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
     return;
 }
 
-//! \brief Passes parent and child matrixes by reference
-//
-// Takes the new blank location in swapTile and the current blank location in blankTile
-// and then switches them in the child_board
 void spawnChild(const vector< vector < int > > &Parent_board, vector< vector < int > > &child_board, tile blankTile, tile swapTile){
     child_board = Parent_board;
     

@@ -49,11 +49,11 @@ int main( ) {
     cout << "Next board: " << endl;
     printBoard(betterchild, num_rows, num_columns);
     cout << endl;
-    */
+    
     
     
     // more tests
-    /*
+    
     vector<vector <int > > board1 = {{1,2,3},{4,5,0},{7,8,6}};
     vector<vector <int > > board2 = {{1,2,3},{4,5,6},{7,8,0}};
     vector<vector <int > > board3 = {{1,2,3},{4,5,6},{7,8,0}};
