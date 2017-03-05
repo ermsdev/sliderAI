@@ -1,0 +1,120 @@
+// Here's some code that I have so far for raylib, not sure how to get all of it set up with github at the moment, 
+// and variable names are bound to change, so I'm just leving it here for the moment
+
+// here are instructions i used for setting up raylib on my mac, 
+// you can just copy/paste this into a new project to try it out.
+// https://github.com/raysan5/raylib/wiki/Compile-for-OSX
+
+
+#include <raylib.h>
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main(  )
+{
+    // Initialization
+    //--------------------------------------------------------------------------------------
+    int screenWidth = 800;
+    int screenHeight = 450;
+    InitWindow(screenWidth, screenHeight, "SliderAI");
+    
+    Color tileColors[18] = { GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY, GRAY };
+    
+    Rectangle selectableButtons[18];
+    //Rectangle numberButtons[9];
+    
+    
+    //board buttons
+    for (int i = 0; i < 9; i++)
+    {
+        selectableButtons[i].x = 20 + 50*(i%3) + 10*(i%3);
+        selectableButtons[i].y = 50 + 50*(i/3) + 10*(i/3);
+        selectableButtons[i].width = 50;
+        selectableButtons[i].height = 50;
+    }
+    
+    for (int i = 9; i < 18; i++)
+    {
+        selectableButtons[i].x = 20 + 30*(i-9);
+        selectableButtons[i].y = 290;
+        selectableButtons[i].width = 20;
+        selectableButtons[i].height = 20;
+    }
+    
+    bool selectedTile[18] = { false };  // Selected tiles indicator
+    
+    Vector2 mousePoint;
+    
+    SetTargetFPS(30);
+    //--------------------------------------------------------------------------------------
+    
+    // Main game loop
+    while (!WindowShouldClose())    // Detect window close button or ESC key
+    {
+        // Update
+        //----------------------------------------------------------------------------------
+        // TODO: Update your variables here
+        
+        
+        mousePoint = GetMousePosition();
+        
+        for (int i = 0; i < 9; i++)    // Iterate along all the rectangles
+        {
+            if (CheckCollisionPointRec(mousePoint, selectableButtons[i]))
+            {
+                tileColors[i].a = 40;
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) selectedTile[i] = !selectedTile[i];
+            }
+            else tileColors[i].a = 120;
+        }
+        
+        for (int i = 9; i < 18; i++)    // Iterate along all the rectangles
+        {
+            if (CheckCollisionPointRec(mousePoint, selectableButtons[i]))
+            {
+                tileColors[i].a = 40;
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) selectedTile[i] = !selectedTile[i];
+            }
+            else tileColors[i].a = 120;
+        }
+        
+        
+        
+        //----------------------------------------------------------------------------------
+        // Draw
+        //----------------------------------------------------------------------------------
+        BeginDrawing();
+        
+        ClearBackground(RAYWHITE);
+        
+        DrawText("8-Puzzle Solver", 20, 20, 20, BLUE);
+        
+        for (int i = 0; i < 9; i++)    // Draw tile buttons
+        {
+            if (selectedTile[i]) tileColors[i].a = 255;
+            DrawRectangleRec(selectableButtons[i], tileColors[i]);
+        }
+        
+        DrawText("Instructions : Click a box in the board above, \nthen click a number from the list below.", 20, 240, 15, BLUE);
+        
+        for (int i = 9; i < 18; i++)    // Draw num buttons
+        {
+            if (selectedTile[i]) tileColors[i].a = 255;
+            DrawRectangleRec(selectableButtons[i], tileColors[i]);
+            DrawText(((i != 17) ? (FormatText("%01i", i-8)) : "D"), selectableButtons[i].x + 7, selectableButtons[i].y + 5, 5, BLUE);
+        }
+        
+        DrawText("Click 'D' to remove a value in the board.", 20, 320, 10, BLUE);
+        
+        EndDrawing();
+        //----------------------------------------------------------------------------------
+    }
+    
+    // De-Initialization
+    //--------------------------------------------------------------------------------------
+    CloseWindow();        // Close window and OpenGL context
+    //--------------------------------------------------------------------------------------
+    
+    return 0;
+}
