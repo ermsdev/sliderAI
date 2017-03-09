@@ -3,6 +3,8 @@
 //  SliderAI
 //
 
+//comenting this out so the main doesnt conflict with the main in functioningSolver.cpp
+ /* 
 #include <vector>
 #include <map>
 
