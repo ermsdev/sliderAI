@@ -51,4 +51,6 @@ void spawnChild(const vector< vector < int > > &Parent_board, vector< vector < i
 //! displays the board arrangement on the console
 void printBoard(const vector< vector <int> > &theBoard, const int &num_rows, const int &num_columns);
 
+bool isSolvable(const vector<vector <int > > &search_board, const vector <vector <int> > &target_board, const int &numRows, const int &numColumns, tile blankTile);
+
 #endif /* sliderai_functions_h */

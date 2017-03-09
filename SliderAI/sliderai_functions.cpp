@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <iostream>
 #include <map>
-//#include <cmath>
 #include "sliderai_functions.h"
 
 
@@ -73,10 +72,7 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
             
             int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
             int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-            /*
-            cout << "scoreRight = " << scoreRIGHT << endl;
-            cout << "scoreDown = " << scoreDOWN << endl;
-            */
+
             if(scoreRIGHT < scoreDOWN){
                 bestChild = childRIGHT;
                 blankTile = swapRIGHT;
@@ -104,10 +100,7 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
             
             int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
             int scoreUP = board_score(target_board, childUP, numRows, numColumns);
-            /*
-            cout << "scoreRight = " << scoreRIGHT << endl;
-            cout << "scoreUP = " << scoreUP << endl;
-            */
+
             if(scoreRIGHT < scoreUP){
                 bestChild = childRIGHT;
                 blankTile = swapRIGHT;
@@ -141,11 +134,7 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
             int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
             int scoreUP = board_score(target_board, childUP, numRows, numColumns);
             int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-            /*
-            cout << "scoreRight = " << scoreRIGHT << endl;
-            cout << "scoreUp = " << scoreUP << endl;
-            cout << "scoreDown = " << scoreDOWN << endl;
-            */
+
             if((scoreRIGHT < scoreUP) && (scoreRIGHT < scoreDOWN)){
                 bestChild = childRIGHT;
                 blankTile = swapRIGHT;
@@ -180,10 +169,7 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
             
             int scoreLEFT = board_score(target_board, childLEFT, numRows, numColumns);
             int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-            /*
-            cout << "scoreLeft = " << scoreLEFT << endl;
-            cout << "scoreDown = " << scoreDOWN << endl;
-            */
+
             if(scoreLEFT < scoreDOWN){
                 bestChild = childLEFT;
                 blankTile = swapLEFT;
@@ -211,10 +197,7 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
             
             int scoreLEFT = board_score(target_board, childLEFT, numRows, numColumns);
             int scoreUP = board_score(target_board, childUP, numRows, numColumns);
-            /*
-            cout << "scoreLeft = " << scoreLEFT << endl;
-            cout << "scoreUp = " << scoreUP << endl;
-            */
+
             if(scoreLEFT < scoreUP){
                 bestChild = childLEFT;
                 blankTile = swapLEFT;
@@ -248,20 +231,7 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
             int scoreLEFT = board_score(target_board, childLEFT, numRows, numColumns);
             int scoreUP = board_score(target_board, childUP, numRows, numColumns);
             int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-            /*
-            cout << "scoreLeft = " << scoreLEFT << endl;
-            cout << "scoreUp = " << scoreUP << endl;
-            cout << "scoreDown = " << scoreDOWN << endl;
-            */
-            /*
-            cout << "Left: " << endl;
-            printBoard(childLEFT, numRows, numColumns);
-            cout << "UP: " << endl;
-            printBoard(childUP, numRows, numColumns);
-            cout << "Down: " << endl;
-            printBoard(childDOWN, numRows, numColumns);
-            cout << endl;
-            */
+
             if((scoreLEFT < scoreUP) && (scoreLEFT < scoreDOWN)){
                 bestChild = childLEFT;
                 blankTile = swapLEFT;
@@ -301,11 +271,7 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
         int scoreLEFT = board_score(target_board, childLEFT, numRows, numColumns);
         int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
         int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-        /*
-        cout << "scoreLeft = " << scoreLEFT << endl;
-        cout << "scoreRight = " << scoreRIGHT << endl;
-        cout << "scoreDown = " << scoreDOWN << endl;
-        */
+        
         if((scoreLEFT < scoreRIGHT) && (scoreLEFT < scoreDOWN)){
             bestChild = childLEFT;
             blankTile = swapLEFT;
@@ -344,11 +310,7 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
         int scoreLEFT = board_score(target_board, childLEFT, numRows, numColumns);
         int scoreUP = board_score(target_board, childUP, numRows, numColumns);
         int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
-        /*
-        cout << "scoreLeft = " << scoreLEFT << endl;
-        cout << "scoreUp = " << scoreUP << endl;
-        cout << "scoreRight = " << scoreRIGHT << endl;
-        */
+
         if((scoreLEFT < scoreUP) && (scoreLEFT < scoreRIGHT)){
             bestChild = childLEFT;
             blankTile = swapLEFT;
@@ -393,12 +355,7 @@ void childMutate(const vector< vector < int > > &target_board, const vector< vec
         int scoreRIGHT = board_score(target_board, childRIGHT, numRows, numColumns);
         int scoreUP = board_score(target_board, childUP, numRows, numColumns);
         int scoreDOWN = board_score(target_board, childDOWN, numRows, numColumns);
-        /*
-        cout << "scoreLeft = " << scoreLEFT << endl;
-        cout << "scoreRight = " << scoreRIGHT << endl;
-        cout << "scoreUp = " << scoreUP << endl;
-        cout << "scoreDown = " << scoreDOWN << endl;
-        */
+
         if((scoreRIGHT < scoreLEFT) && (scoreRIGHT < scoreUP) && (scoreRIGHT < scoreDOWN)){
             bestChild = childRIGHT;
             blankTile = swapRIGHT;
@@ -442,4 +399,48 @@ void printBoard(const vector< vector <int> > &theBoard, const int &num_rows, con
         }
         cout << endl;
     }
+}
+
+bool boardSolvable(const vector<vector <int > > &search_board, const vector <vector <int> > &target_board, const int &numRows, const int &numColumns, tile blankTile){
+    bool isSolvable = false;
+    int target = 0;
+    int present = 0;
+    int inversion_count = 0;
+    for(int i = 0; i < numColumns; i++){
+        for(int j = 0; j < numRows; j++){
+            target = target_board[j][i];
+            if(target != 0){    //! skipping the blank tile
+                while(present != target){   //! checking to see if we reached the target value
+                    for(int y = 0; y < numColumns; y++){
+                        for(int z = 0; z < numRows; z++){
+                            present = search_board[z][y];
+                            if(present > target){
+                                inversion_count++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if(numRows != numColumns){
+        cout << "This version of the solver only supports square boards at this time" << endl;
+    }
+    else if((numColumns % 2) == 1){ //! Checking if the board is odd
+        isSolvable = true;
+    }
+    else if((numRows % 2) == 0){    //! Checking if board is divisible by 2 (even)
+        if((inversion_count % 2) == 0){ //! Checking if even number of inversions
+            if((blankTile.row % 2 == 0) && (inversion_count % 2 == 1)){
+                isSolvable = true;
+            }
+        }
+        else if((blankTile.row % 2 == 1) && (inversion_count % 2 == 1)){
+            
+        }
+    }
+    else{   //! Some check to see if something strange happened when determining if board is even or odd
+        cout << "Something weird happened when determining board dimensions..." << endl;
+    }
+    return(isSolvable);
 }

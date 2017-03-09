@@ -22,7 +22,9 @@ int main( ) {
     tile blankTile(0,0); //! Declairing the location of the empty tile to save time
     
     vector<vector <int > > boardstart = {{1,2,3},{0,5,6},{4,7,8}};
-    vector<vector <int > > boardend = {{1,2,3},{4,5,6},{0,7,8}};
+    
+    //! Currently need the numbers to be entered in order (the zero/blank can be moved to another location though)
+    vector<vector <int > > boardend = {{1,2,3},{4,5,6},{7,8,0}};
     
     targetSearch(0, boardstart, num_rows, num_columns, blankTile);
     
