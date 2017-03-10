@@ -30,3 +30,5 @@
 
 # OSX stuff
 .DS_Store
+
+*.xcuserstate
