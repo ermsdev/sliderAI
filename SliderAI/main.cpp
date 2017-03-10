@@ -26,7 +26,7 @@ public:
     board(vector<vector<int>> l, char m = NULL, int pMov = 0);
     board(board const &b);
     int scoreBoard();
-    vector<board> spawnChildren();
+    vector<board> spawnChildren(const vector< vector<int>> &boardLayout, vector<board> &children);
     vector<vector<int>> getLayout() const {return layout;}
     bool isGoal();
     bool isSameAs(board& b);
@@ -53,13 +53,13 @@ public:
 //-----------------------------------------------------
 
 /*
-board::board(){
-    layout = {{NULL,NULL,NULL},{NULL,NULL,NULL},{NULL,NULL,NULL}};// this constructor makes a null board, if it gets used without being edited it should throw an error
-    blankR = NULL;
-    blankC = NULL;
-    move = NULL;
-    
-}
+ board::board(){
+ layout = {{NULL,NULL,NULL},{NULL,NULL,NULL},{NULL,NULL,NULL}};// this constructor makes a null board, if it gets used without being edited it should throw an error
+ blankR = NULL;
+ blankC = NULL;
+ move = NULL;
+ 
+ }
  */
 
 board::board(vector<vector<int>> l, char m, int pMov){
@@ -105,8 +105,8 @@ int board::scoreBoard(){
     return score;
 }
 
-vector<board> board::spawnChildren(){
-    vector<board> children;
+vector<board> board::spawnChildren(const vector< vector<int>> &boardLayout, vector<board> &children){
+    children.clear(); // clearing old children and freeing up memory
     { //up
         if ((blankR-1)>(-1)) { // only need to check if it went outside the board on the top side
             vector<vector<int>> childLayout = layout;
@@ -117,7 +117,7 @@ vector<board> board::spawnChildren(){
         }
     }
     { //down
-        if ((blankR+1)<3) {
+        if ((blankR+1)< boardLayout.size()) {
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR+1][blankC];
             childLayout[blankR+1][blankC] = layout[blankR][blankC];
@@ -135,7 +135,7 @@ vector<board> board::spawnChildren(){
         }
     }
     { //right
-        if ((blankC+1)<3) {
+        if ((blankC+1)<boardLayout[0].size()) {
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR][blankC+1];
             childLayout[blankR][blankC+1] = layout[blankR][blankC];
@@ -171,29 +171,29 @@ bool board::isSameAs(board& b){
 void board::coutBoard(){
     for (int i=0; i<layout.size(); i++) {
         for (int j=0; j<layout.at(i).size(); j++) {
-            cout << layout.at(i).at(j);
+            cout << layout.at(i).at(j) << '\t';
         }
         cout << endl;
     }
 }
 
 /*
-board& board::operator=(const board& rightSide){
-    if (this != &rightSide) {
-        blankR = rightSide.blankR;
-        blankC = rightSide.blankC;
-        layout = rightSide.layout;
-        move = rightSide.move;
-    }
-    
-    return *this;
-}
-*/
+ board& board::operator=(const board& rightSide){
+ if (this != &rightSide) {
+ blankR = rightSide.blankR;
+ blankC = rightSide.blankC;
+ layout = rightSide.layout;
+ move = rightSide.move;
+ }
+ 
+ return *this;
+ }
+ */
 
 //-----------------------------------------------------
 
-
-vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
+//vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
+vector<vector<int>> board::goal = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};; //setting static goal
 
 
 int main (){
@@ -201,10 +201,11 @@ int main (){
     // setting up queue and putting initial state in
     priority_queue<board, deque<board>, compare> boardList;
     //vector<vector<int>> startLayout = {{0,1,3},{4,2,6},{7,5,8}}; // solves in 4 moves: R, D, D, R
-    vector<vector<int>> startLayout = {{5,0,7},{8,2,3},{1,4,6}}; // solves in less than 38 moves
+    //vector<vector<int>> startLayout = {{5,0,7},{8,2,3},{1,4,6}}; // solves in less than 38 moves
+    vector<vector<int>> startLayout = {{5,1,3,4},{0,2,6,8},{9,10,7,11},{13,14,15,12}};
     board startBoard(startLayout);
     boardList.push(startBoard);
-    
+    vector<board> childBoards;
     int moveCount = 0;
     bool foundGoal;
     board lastParent(startBoard);
@@ -212,7 +213,7 @@ int main (){
         board poppedBoard(boardList.top());
         boardList.pop();
         
-        vector<board> childBoards = poppedBoard.spawnChildren();
+        poppedBoard.spawnChildren(startLayout, childBoards);
         
         for (int i=0; i<childBoards.size(); i++) {
             {
