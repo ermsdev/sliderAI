@@ -56,6 +56,7 @@ void targetSearch(const int &targetValue, const vector<vector <int > > &searchBo
 }
 
 void childMutate(const vector< vector < int > > &target_board, const vector< vector < int > > current_board, const int &numRows, const int &numColumns, vector< vector < int > > &bestChild, tile &blankTile){
+    //cout << "I'm alive" << endl;
     // running through tile arrangements and identifying where the possible tile shifts are
     // (checking to see if at the edge of a board)
     if(blankTile.column == 0){
@@ -401,46 +402,57 @@ void printBoard(const vector< vector <int> > &theBoard, const int &num_rows, con
     }
 }
 
-bool boardSolvable(const vector<vector <int > > &search_board, const vector <vector <int> > &target_board, const int &numRows, const int &numColumns, tile blankTile){
+bool isSolvable(const vector<vector <int > > &search_board, const vector <vector <int> > &target_board, const int &numRows, const int &numColumns, tile blankTile){
     bool isSolvable = false;
     int target = 0;
     int present = 0;
     int inversion_count = 0;
-    for(int i = 0; i < numColumns; i++){
-        for(int j = 0; j < numRows; j++){
-            target = target_board[j][i];
+    for(int i = 0; i < numRows; i++){
+        for(int j = 0; j < numColumns; j++){
+            target = target_board[i][j];
             if(target != 0){    //! skipping the blank tile
-                while(present != target){   //! checking to see if we reached the target value
-                    for(int y = 0; y < numColumns; y++){
-                        for(int z = 0; z < numRows; z++){
-                            present = search_board[z][y];
-                            if(present > target){
-                                inversion_count++;
-                            }
+                for(int y = 0; present != target; y++){
+                    if(y == search_board.size()){
+                        break;
+                    }
+                    for(int z = 0; present != target; z++){
+                        if(z == search_board[0].size()){
+                            break;
+                        }
+                        present = search_board[y][z];
+                        //cout << "Target: " << target << endl;
+                        //cout << "Present: " << present << endl;
+                        //cout << "Inversion count: " << inversion_count << endl;
+                        if(present > target){
+                            inversion_count++;
                         }
                     }
                 }
             }
         }
     }
+    
+    cout << inversion_count << endl;
     if(numRows != numColumns){
         cout << "This version of the solver only supports square boards at this time" << endl;
     }
-    else if((numColumns % 2) == 1){ //! Checking if the board is odd
+    else if(((numColumns % 2) != 0) && ((inversion_count % 2) == 0)){ //! Checking if the board is odd and number of inversions is even
         isSolvable = true;
     }
     else if((numRows % 2) == 0){    //! Checking if board is divisible by 2 (even)
         if((inversion_count % 2) == 0){ //! Checking if even number of inversions
-            if((blankTile.row % 2 == 0) && (inversion_count % 2 == 1)){
+            if((blankTile.row % 2 == 0) && (inversion_count % 2 != 0)){ //! Checking if on even row and number of inversions is odd
                 isSolvable = true;
             }
         }
-        else if((blankTile.row % 2 == 1) && (inversion_count % 2 == 1)){
-            
+        else if((blankTile.row % 2 == 1) && (inversion_count % 2 == 0)){
+            isSolvable = true;
         }
     }
     else{   //! Some check to see if something strange happened when determining if board is even or odd
         cout << "Something weird happened when determining board dimensions..." << endl;
     }
+    //cout << "This board is: " << isSolvable << endl;
+    //cout << "Inversion count: " << inversion_count << endl;
     return(isSolvable);
 }

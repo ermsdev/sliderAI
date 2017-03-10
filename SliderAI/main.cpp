@@ -21,7 +21,8 @@ int main( ) {
     
     tile blankTile(0,0); //! Declairing the location of the empty tile to save time
     
-    vector<vector <int > > boardstart = {{1,2,3},{0,5,6},{4,7,8}};
+    vector<vector <int > > boardstart = {{1,3,2},{0,5,6},{4,8,7}};
+    //vector<vector <int > > boardstart = {{1,2,3},{4,0,6},{7,5,8}};
     
     //! Currently need the numbers to be entered in order (the zero/blank can be moved to another location though)
     vector<vector <int > > boardend = {{1,2,3},{4,5,6},{7,8,0}};
@@ -33,12 +34,17 @@ int main( ) {
     //int score = board_score(boardstart, boardend, num_rows, num_columns);
     
     vector<vector <int > > betterchild;
+    vector<vector <int > > priorchild;
     childMutate(boardend, boardstart, num_rows, num_columns, betterchild, blankTile);
     
     int scoreStart = board_score(boardstart, boardend, num_rows, num_columns);
     int scoreNXT = board_score(betterchild, boardend, num_rows, num_columns);
     
-    /*
+    bool canSolve = false;
+    canSolve = isSolvable(boardstart, boardend, num_rows, num_columns, blankTile);
+    cout << canSolve << endl;
+    
+    
     cout << "Starting score = " << scoreStart << endl;
     cout << "Next score = " << scoreNXT << endl;
     
@@ -52,8 +58,15 @@ int main( ) {
     printBoard(betterchild, num_rows, num_columns);
     cout << endl;
     
+    while(scoreStart != scoreNXT){
+        priorchild = betterchild;
+        printBoard(betterchild, num_rows, num_columns);
+        printBoard(priorchild, num_rows, num_columns);
+        childMutate(boardend, betterchild, num_rows, num_columns, betterchild, blankTile);
+    }
     
     
+    /*
     // more tests
     
     vector<vector <int > > board1 = {{1,2,3},{4,5,0},{7,8,6}};
