@@ -7,6 +7,7 @@
 #include <queue>
 #include <vector>
 #include <string>
+#include <ctime>
 using namespace std;
 
 //-----------------------------------------------------
@@ -26,7 +27,8 @@ public:
     board(vector<vector<int>> l, char m = NULL, int pMov = 0);
     board(board const &b);
     int scoreBoard();
-    vector<board> spawnChildren(const vector< vector<int>> &boardLayout, vector<board> &children);
+    void spawnChildren(const vector< vector<int>> &boardLayout, vector<board> &children);
+    //vector<board> spawnChildren(const vector< vector<int>> &boardLayout);
     vector<vector<int>> getLayout() const {return layout;}
     bool isGoal();
     bool isSameAs(board& b);
@@ -44,6 +46,8 @@ public:
         return a.scoreBoard() > b.scoreBoard();
     }
 };
+
+void consoleEntry(board &unsolvedBoard); //! Called to enter puzzle
 
 //-----------------------------------------------------
 
@@ -105,8 +109,10 @@ int board::scoreBoard(){
     return score;
 }
 
-vector<board> board::spawnChildren(const vector< vector<int>> &boardLayout, vector<board> &children){
+//vector<board> board::spawnChildren(const vector< vector<int>> &boardLayout){
+void board::spawnChildren(const vector< vector<int>> &boardLayout, vector<board> &children){
     children.clear(); // clearing old children and freeing up memory
+    //vector<board> children;
     { //up
         if ((blankR-1)>(-1)) { // only need to check if it went outside the board on the top side
             vector<vector<int>> childLayout = layout;
@@ -143,7 +149,7 @@ vector<board> board::spawnChildren(const vector< vector<int>> &boardLayout, vect
             children.push_back(childBoard);
         }
     }
-    return children;
+    //return children;
 }
 
 bool board::isGoal(){
@@ -190,19 +196,28 @@ void board::coutBoard(){
  }
  */
 
+void consoleEntry(board &unsolvedBoard){
+    int size;
+    cout << "Please enter the number of rows/columns you would like to use: ";
+    cin >> size;
+    cin.ignore();
+    cout << endl;
+    cout << "You entered: " << size << " we will now solve a " << size << "x" << size << " puzzle" << endl;
+}
+
 //-----------------------------------------------------
 
-//vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
-vector<vector<int>> board::goal = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};; //setting static goal
+vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
+//vector<vector<int>> board::goal = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};; //setting static goal
 
 
 int main (){
-    
+    clock_t begin = clock();
     // setting up queue and putting initial state in
     priority_queue<board, deque<board>, compare> boardList;
     //vector<vector<int>> startLayout = {{0,1,3},{4,2,6},{7,5,8}}; // solves in 4 moves: R, D, D, R
-    //vector<vector<int>> startLayout = {{5,0,7},{8,2,3},{1,4,6}}; // solves in less than 38 moves
-    vector<vector<int>> startLayout = {{5,1,3,4},{0,2,6,8},{9,10,7,11},{13,14,15,12}};
+    vector<vector<int>> startLayout = {{5,0,7},{8,2,3},{1,4,6}}; // solves in less than 38 moves
+    //vector<vector<int>> startLayout = {{5,1,3,4},{0,2,6,8},{9,10,7,11},{13,14,15,12}};
     board startBoard(startLayout);
     boardList.push(startBoard);
     vector<board> childBoards;
@@ -213,6 +228,7 @@ int main (){
         board poppedBoard(boardList.top());
         boardList.pop();
         
+        //childBoards = poppedBoard.spawnChildren(startLayout);
         poppedBoard.spawnChildren(startLayout, childBoards);
         
         for (int i=0; i<childBoards.size(); i++) {
@@ -235,7 +251,9 @@ int main (){
     }while(!foundGoal);
     
     cout << "I found the answer in " << moveCount-1 << " moves!\n\n";
-    
+    clock_t end = clock();
+    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    cout << elapsed_secs << endl;
     
     return 0;
 }
