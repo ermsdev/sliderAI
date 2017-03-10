@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  SliderAI2
+//  SliderAI
 //
 
 #include <iostream>
@@ -19,9 +19,11 @@ private:
     int blankC;
     vector<vector<int>> layout;
     char move; //character indicating what move was used to get to this board, null for first board
+    int previousMoveCount; //I forgot about this part of the algotithm, the correct scoring function is (manhattan + previousMoveCount)
 public:
     static vector<vector<int>> goal;
-    board(vector<vector<int>> l, char m = NULL);
+    //board();
+    board(vector<vector<int>> l, char m = NULL, int pMov = 0);
     board(board const &b);
     int scoreBoard();
     vector<board> spawnChildren();
@@ -30,6 +32,10 @@ public:
     bool isSameAs(board& b);
     char getMove(){return move;}
     void coutBoard();
+    //board& operator=(const board& rightSide);
+    vector<vector<int>> getLayout(){return layout;}
+    void setLayout(vector<vector<int>> l){layout = l;}
+    int get_pMov(){return previousMoveCount;}
 };
 
 class compare{
@@ -46,9 +52,20 @@ public:
 // implementation
 //-----------------------------------------------------
 
-board::board(vector<vector<int>> l, char m){
+/*
+board::board(){
+    layout = {{NULL,NULL,NULL},{NULL,NULL,NULL},{NULL,NULL,NULL}};// this constructor makes a null board, if it gets used without being edited it should throw an error
+    blankR = NULL;
+    blankC = NULL;
+    move = NULL;
+    
+}
+ */
+
+board::board(vector<vector<int>> l, char m, int pMov){
     layout = l;
     move = m;
+    previousMoveCount = pMov;
     //updates the blank tile location, I would make it a function, but this is the only usage:
     for (int i=0; i<layout.size(); i++) {
         for (int j=0; j<layout.at(i).size(); j++) {
@@ -65,6 +82,7 @@ board::board(board const &b){
     blankC = b.blankC;
     layout = b.layout;
     move = b.move;
+    previousMoveCount = b.previousMoveCount;
 }
 
 int board::scoreBoard(){
@@ -83,6 +101,7 @@ int board::scoreBoard(){
         }
     }
     //cout << "score: " << score << endl;
+    score += previousMoveCount;
     return score;
 }
 
@@ -93,7 +112,7 @@ vector<board> board::spawnChildren(){
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR-1][blankC];
             childLayout[blankR-1][blankC] = layout[blankR][blankC];
-            board childBoard(childLayout, 'U');
+            board childBoard(childLayout, 'U', previousMoveCount++);
             children.push_back(childBoard);
         }
     }
@@ -102,7 +121,7 @@ vector<board> board::spawnChildren(){
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR+1][blankC];
             childLayout[blankR+1][blankC] = layout[blankR][blankC];
-            board childBoard(childLayout, 'D');
+            board childBoard(childLayout, 'D', previousMoveCount++);
             children.push_back(childBoard);
         }
     }
@@ -111,7 +130,7 @@ vector<board> board::spawnChildren(){
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR][blankC-1];
             childLayout[blankR][blankC-1] = layout[blankR][blankC];
-            board childBoard(childLayout, 'L');
+            board childBoard(childLayout, 'L', previousMoveCount++);
             children.push_back(childBoard);
         }
     }
@@ -120,7 +139,7 @@ vector<board> board::spawnChildren(){
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR][blankC+1];
             childLayout[blankR][blankC+1] = layout[blankR][blankC];
-            board childBoard(childLayout, 'R');
+            board childBoard(childLayout, 'R', previousMoveCount++);
             children.push_back(childBoard);
         }
     }
@@ -158,6 +177,18 @@ void board::coutBoard(){
     }
 }
 
+/*
+board& board::operator=(const board& rightSide){
+    if (this != &rightSide) {
+        blankR = rightSide.blankR;
+        blankC = rightSide.blankC;
+        layout = rightSide.layout;
+        move = rightSide.move;
+    }
+    
+    return *this;
+}
+*/
 
 //-----------------------------------------------------
 
@@ -170,12 +201,13 @@ int main (){
     // setting up queue and putting initial state in
     priority_queue<board, deque<board>, compare> boardList;
     //vector<vector<int>> startLayout = {{0,1,3},{4,2,6},{7,5,8}}; // solves in 4 moves: R, D, D, R
-    vector<vector<int>> startLayout = {{5,0,7},{8,2,3},{1,4,6}}; // arbitrary solvable board
+    vector<vector<int>> startLayout = {{5,0,7},{8,2,3},{1,4,6}}; // solves in less than 38 moves
     board startBoard(startLayout);
     boardList.push(startBoard);
     
     int moveCount = 0;
     bool foundGoal;
+    board lastParent(startBoard);
     do{
         board poppedBoard(boardList.top());
         boardList.pop();
@@ -184,15 +216,21 @@ int main (){
         
         for (int i=0; i<childBoards.size(); i++) {
             {
-                boardList.push(childBoards.at(i));
+                if (childBoards.at(i).getLayout() != lastParent.getLayout()) {
+                    boardList.push(childBoards.at(i));
+                }
             }
         }
         
         foundGoal = poppedBoard.isGoal();
         moveCount++;
         poppedBoard.coutBoard();
-        cout << poppedBoard.scoreBoard() << endl;
-        cout << poppedBoard.getMove() << endl << endl;
+        cout << "score: " << poppedBoard.scoreBoard() << endl;
+        cout << "move: " << poppedBoard.getMove() << endl;
+        cout << "count: " << poppedBoard.get_pMov() << endl << endl;
+        
+        // THIS DOES NOT KEEP BLANK UPDATED! if we decide later that we need to use blank in lastParent we'll have to set that up then.
+        lastParent.setLayout(poppedBoard.getLayout());
     }while(!foundGoal);
     
     cout << "I found the answer in " << moveCount-1 << " moves!\n\n";
