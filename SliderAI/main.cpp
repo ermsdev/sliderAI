@@ -3,78 +3,238 @@
 //  SliderAI
 //
 
-//comenting this out so the main doesnt conflict with the main in functioningSolver.cpp
- /* 
+#include <iostream>
+#include <queue>
 #include <vector>
-#include <map>
-
-
-#include "sliderai.h"
-#include "sliderai_functions.h"
-
-
+#include <string>
 using namespace std;
 
-int main( ) {
+//-----------------------------------------------------
+// header
+//-----------------------------------------------------
+
+class board {
+private:
+    int blankR;
+    int blankC;
+    vector<vector<int>> layout;
+    char move; //character indicating what move was used to get to this board, null for first board
+    int previousMoveCount; //I forgot about this part of the algotithm, the correct scoring function is (manhattan + previousMoveCount)
+public:
+    static vector<vector<int>> goal;
+    //board();
+    board(vector<vector<int>> l, char m = NULL, int pMov = 0);
+    board(board const &b);
+    int scoreBoard();
+    vector<board> spawnChildren();
+    vector<vector<int>> getLayout() const {return layout;}
+    bool isGoal();
+    bool isSameAs(board& b);
+    char getMove(){return move;}
+    void coutBoard();
+    //board& operator=(const board& rightSide);
+    vector<vector<int>> getLayout(){return layout;}
+    void setLayout(vector<vector<int>> l){layout = l;}
+    int get_pMov(){return previousMoveCount;}
+};
+
+class compare{
+public:
+    bool operator()(board a, board b){
+        return a.scoreBoard() > b.scoreBoard();
+    }
+};
+
+//-----------------------------------------------------
+
+
+//-----------------------------------------------------
+// implementation
+//-----------------------------------------------------
+
+/*
+board::board(){
+    layout = {{NULL,NULL,NULL},{NULL,NULL,NULL},{NULL,NULL,NULL}};// this constructor makes a null board, if it gets used without being edited it should throw an error
+    blankR = NULL;
+    blankC = NULL;
+    move = NULL;
     
-    // testing stuff
-    int num_rows = 3;
-    int num_columns = 3;
+}
+ */
+
+board::board(vector<vector<int>> l, char m, int pMov){
+    layout = l;
+    move = m;
+    previousMoveCount = pMov;
+    //updates the blank tile location, I would make it a function, but this is the only usage:
+    for (int i=0; i<layout.size(); i++) {
+        for (int j=0; j<layout.at(i).size(); j++) {
+            if (layout.at(i).at(j) == 0) {
+                blankR = i;
+                blankC = j;
+            }
+        }
+    }
+}
+
+board::board(board const &b){
+    blankR = b.blankR;
+    blankC = b.blankC;
+    layout = b.layout;
+    move = b.move;
+    previousMoveCount = b.previousMoveCount;
+}
+
+int board::scoreBoard(){
+    int target = 0; // stores the variable to hunt for here
+    int score = 0; // Stores the total 'score' here
+    for(int r=0; r<layout.size(); r++){
+        for(int c=0; c<layout.at(r).size(); c++){
+            target = goal[r][c];
+            for(int sr=0; sr<layout.size(); sr++){
+                for(int sc=0; sc<layout.at(sr).size(); sc++){
+                    if((layout[sr][sc] == target) && (layout[sr][sc] != 0)){ // blank tile is not counted
+                        score += abs(r - sr) + abs(c - sc);
+                    }
+                }
+            }
+        }
+    }
+    //cout << "score: " << score << endl;
+    score += previousMoveCount;
+    return score;
+}
+
+vector<board> board::spawnChildren(){
+    vector<board> children;
+    { //up
+        if ((blankR-1)>(-1)) { // only need to check if it went outside the board on the top side
+            vector<vector<int>> childLayout = layout;
+            childLayout[blankR][blankC] = layout[blankR-1][blankC];
+            childLayout[blankR-1][blankC] = layout[blankR][blankC];
+            board childBoard(childLayout, 'U', previousMoveCount++);
+            children.push_back(childBoard);
+        }
+    }
+    { //down
+        if ((blankR+1)<3) {
+            vector<vector<int>> childLayout = layout;
+            childLayout[blankR][blankC] = layout[blankR+1][blankC];
+            childLayout[blankR+1][blankC] = layout[blankR][blankC];
+            board childBoard(childLayout, 'D', previousMoveCount++);
+            children.push_back(childBoard);
+        }
+    }
+    { //left
+        if ((blankC-1)>(-1)) {
+            vector<vector<int>> childLayout = layout;
+            childLayout[blankR][blankC] = layout[blankR][blankC-1];
+            childLayout[blankR][blankC-1] = layout[blankR][blankC];
+            board childBoard(childLayout, 'L', previousMoveCount++);
+            children.push_back(childBoard);
+        }
+    }
+    { //right
+        if ((blankC+1)<3) {
+            vector<vector<int>> childLayout = layout;
+            childLayout[blankR][blankC] = layout[blankR][blankC+1];
+            childLayout[blankR][blankC+1] = layout[blankR][blankC];
+            board childBoard(childLayout, 'R', previousMoveCount++);
+            children.push_back(childBoard);
+        }
+    }
+    return children;
+}
+
+bool board::isGoal(){
+    for (int i=0; i<layout.size(); i++) {
+        for (int j=0; j<layout.at(i).size(); j++) {
+            if (layout.at(i).at(j) != goal.at(i).at(j)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool board::isSameAs(board& b){
+    for (int i=0; i<layout.size(); i++) {
+        for (int j=0; j<layout.at(i).size(); j++) {
+            if (layout.at(i).at(j) != b.layout.at(i).at(j)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+void board::coutBoard(){
+    for (int i=0; i<layout.size(); i++) {
+        for (int j=0; j<layout.at(i).size(); j++) {
+            cout << layout.at(i).at(j);
+        }
+        cout << endl;
+    }
+}
+
+/*
+board& board::operator=(const board& rightSide){
+    if (this != &rightSide) {
+        blankR = rightSide.blankR;
+        blankC = rightSide.blankC;
+        layout = rightSide.layout;
+        move = rightSide.move;
+    }
     
-    tile blankTile(0,0); //! Declairing the location of the empty tile to save time
+    return *this;
+}
+*/
+
+//-----------------------------------------------------
+
+
+vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
+
+
+int main (){
     
-    vector<vector <int > > boardstart = {{1,2,3},{0,5,6},{4,7,8}};
-    vector<vector <int > > boardend = {{1,2,3},{4,5,6},{0,7,8}};
+    // setting up queue and putting initial state in
+    priority_queue<board, deque<board>, compare> boardList;
+    //vector<vector<int>> startLayout = {{0,1,3},{4,2,6},{7,5,8}}; // solves in 4 moves: R, D, D, R
+    vector<vector<int>> startLayout = {{5,0,7},{8,2,3},{1,4,6}}; // solves in less than 38 moves
+    board startBoard(startLayout);
+    boardList.push(startBoard);
     
-    targetSearch(0, boardstart, num_rows, num_columns, blankTile);
+    int moveCount = 0;
+    bool foundGoal;
+    board lastParent(startBoard);
+    do{
+        board poppedBoard(boardList.top());
+        boardList.pop();
+        
+        vector<board> childBoards = poppedBoard.spawnChildren();
+        
+        for (int i=0; i<childBoards.size(); i++) {
+            {
+                if (childBoards.at(i).getLayout() != lastParent.getLayout()) {
+                    boardList.push(childBoards.at(i));
+                }
+            }
+        }
+        
+        foundGoal = poppedBoard.isGoal();
+        moveCount++;
+        poppedBoard.coutBoard();
+        cout << "score: " << poppedBoard.scoreBoard() << endl;
+        cout << "move: " << poppedBoard.getMove() << endl;
+        cout << "count: " << poppedBoard.get_pMov() << endl << endl;
+        
+        // THIS DOES NOT KEEP BLANK UPDATED! if we decide later that we need to use blank in lastParent we'll have to set that up then.
+        lastParent.setLayout(poppedBoard.getLayout());
+    }while(!foundGoal);
     
-    cout << "Location of blank tile: " << blankTile.row << " " << blankTile.column << endl;
+    cout << "I found the answer in " << moveCount-1 << " moves!\n\n";
     
-    //int score = board_score(boardstart, boardend, num_rows, num_columns);
-    
-    vector<vector <int > > betterchild;
-    childMutate(boardend, boardstart, num_rows, num_columns, betterchild, blankTile);
-    
-    int scoreStart = board_score(boardstart, boardend, num_rows, num_columns);
-    int scoreNXT = board_score(betterchild, boardend, num_rows, num_columns);
-    
-    /*
-    cout << "Starting score = " << scoreStart << endl;
-    cout << "Next score = " << scoreNXT << endl;
-    
-    cout << "Next blank row: " << blankTile.row << endl;
-    cout << "Next blank column: " << blankTile.column << endl;
-    
-    cout << "Starting board: " << endl;
-    printBoard(boardstart, num_rows, num_columns);
-    cout << endl;
-    cout << "Next board: " << endl;
-    printBoard(betterchild, num_rows, num_columns);
-    cout << endl;
-    
-    
-    
-    // more tests
-    
-    vector<vector <int > > board1 = {{1,2,3},{4,5,0},{7,8,6}};
-    vector<vector <int > > board2 = {{1,2,3},{4,5,6},{7,8,0}};
-    vector<vector <int > > board3 = {{1,2,3},{4,5,6},{7,8,0}};
-    
-    int score1 = board_score(board1, board3, num_rows, num_columns);
-    int score2 = board_score(board2, board3, num_rows, num_columns);
-    
-    cout << "Score 1: " << score1 << endl;
-    cout << "Score 2: " << score2 << endl;
-    */
-    //int rootLayout[9] = {1,0,2,4,6,3,7,5,8}; //solvable in <10 moves, index = boardPosition
-    
-    //board tb1(rootLayout, 1);
-    
-    //tb1.coutLayout();
-    
-    //board tb2(tb1);
-    
-    //tb2.coutLayout();
     
     return 0;
 }
