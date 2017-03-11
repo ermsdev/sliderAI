@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 #include <ctime>
-#include <queue>
+
 using namespace std;
 
 //-----------------------------------------------------
@@ -78,7 +78,9 @@ board::board(vector<vector<int>> l, char m, int pMov, vector<char> priorMoves){
     previousMoveCount = pMov;
     size = l.size();
     pastMoves = priorMoves;
-    pastMoves.push_back(m);
+    if(m != NULL){
+        pastMoves.push_back(m);
+    }
     //updates the blank tile location, I would make it a function, but this is the only usage:
     for (int i=0; i<layout.size(); i++) {
         for (int j=0; j<layout.at(i).size(); j++) {
@@ -223,14 +225,46 @@ vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static go
 
 
 int main (){
-    std::queue<board> boardQueue;
-    clock_t begin = clock();
+    //clock_t begin = clock();
     // setting up queue and putting initial state in
     priority_queue<board, deque<board>, compare> boardList;
     //vector<vector<int>> startLayout = {{0,1,3},{4,2,6},{7,5,8}}; // solves in 4 moves: R, D, D, R
-    vector<vector<int>> startLayout = {{5,0,7},{8,2,3},{1,4,6}}; // solves in less than 38 moves
+    //vector<vector<int>> startLayout = {{1,0,3},{4,2,5},{7,8,6}};
+    //vector<vector<int>> startLayout = {{5,0,7},{8,2,3},{1,4,6}}; // solves in less than 38 moves
     //vector<vector<int>> startLayout = {{1,2,3},{4,5,6},{7,0,8}};
+    /*
+     vector<vector<int>> startLayout = {{2,8,3},
+                                        {1,5,0},
+                                        {4,7,6}};
+    */
+    /*
+    vector<vector<int>> startLayout = {{2,8,3},
+                                       {1,0,5},
+                                       {4,7,6}};
+    */
+    
+    vector<vector<int>> startLayout = {{2,6,8}, // solves only with += previousMoveCount
+                                       {5,4,7},
+                                       {3,0,1}};
+    
+    /*
+    vector<vector<int>> startLayout = {{2,6,8}, // solves only with += previousMoveCount
+                                       {5,4,7},
+                                       {3,0,1}};
+    */
+    /*
+    vector<vector<int>> startLayout = {{1,2,3},
+                                       {4,5,6},
+                                       {7,8,0}};
+    */
     //vector<vector<int>> startLayout = {{5,1,3,4},{0,2,6,8},{9,10,7,11},{13,14,15,12}};
+    //vector<vector<int>> startLayout = {{1,2,3,4},{5,6,7,8},{9,10,0,12},{13,14,11,15}};
+    /*
+    vector<vector<int>> startLayout = {{1,2,3,4},
+                                       {5,6,7,8},
+                                       {9,10,11,12},
+                                       {13,14,15,0}};
+    */
     board startBoard(startLayout);
     boardList.push(startBoard);
     vector<board> childBoards;
@@ -240,7 +274,9 @@ int main (){
     do{
         board poppedBoard(boardList.top());
         boardList.pop();
-        boardQueue.push(poppedBoard);
+        if(poppedBoard.isGoal() == true){
+            break;
+        }
         
         childBoards = poppedBoard.spawnChildren(startLayout);
         //poppedBoard.spawnChildren(startLayout, childBoards);
@@ -266,14 +302,15 @@ int main (){
         lastParent.setLayout(poppedBoard.getLayout());
     }while(!foundGoal);
     
-    cout << "I found the answer in " << moveCount-1 << " moves!\n\n";
-    clock_t end = clock();
-    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-    cout << elapsed_secs << endl;
+    //cout << "I found the answer in " << moveCount-1 << " moves!\n\n";
+    cout << "I found the answer in " << moveCount << " moves!\n\n";
+    //clock_t end = clock();
+    //double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    //cout << elapsed_secs << endl;
     
     board finalBoard(boardList.top());
-    cout << finalBoard.getMoveCount() << endl;
-    cout << finalBoard.getMove() << endl;
+    cout << "My real moves needed: " << finalBoard.getMoveCount() << endl;
+    //cout << finalBoard.getMove() << endl;
     vector<char> pastMoveList = finalBoard.getPastMoves();
     for(int i = 0; i < finalBoard.getMoveCount(); i++){
         cout << pastMoveList[i] << endl;
