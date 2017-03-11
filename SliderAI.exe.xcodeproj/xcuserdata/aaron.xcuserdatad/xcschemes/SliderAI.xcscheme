@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DC41E49F1E5C03BC0080DFB3"
-               BuildableName = "SliderAI"
+               BuildableName = "SliderAI.exe"
                BlueprintName = "SliderAI"
                ReferencedContainer = "container:SliderAI.exe.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DC41E49F1E5C03BC0080DFB3"
-            BuildableName = "SliderAI"
+            BuildableName = "SliderAI.exe"
             BlueprintName = "SliderAI"
             ReferencedContainer = "container:SliderAI.exe.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DC41E49F1E5C03BC0080DFB3"
-            BuildableName = "SliderAI"
+            BuildableName = "SliderAI.exe"
             BlueprintName = "SliderAI"
             ReferencedContainer = "container:SliderAI.exe.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DC41E49F1E5C03BC0080DFB3"
-            BuildableName = "SliderAI"
+            BuildableName = "SliderAI.exe"
             BlueprintName = "SliderAI"
             ReferencedContainer = "container:SliderAI.exe.xcodeproj">
          </BuildableReference>

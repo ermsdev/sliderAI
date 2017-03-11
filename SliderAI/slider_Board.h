@@ -40,9 +40,11 @@ public:
     vector<vector<int>> getLayout(){return layout;}
     void setLayout(vector<vector<int>> l){layout = l;}
     int get_pMov(){return previousMoveCount;}
-    long getSize(){return(size);}
-    long getMoveCount(){return(pastMoves.size());}
+    long getSize() const {return(size);}
+    long getMoveCount() const {return(pastMoves.size());}
     vector<char> getPastMoves(){return(pastMoves);}
+    int getBlankRow() const {return(blankR);}
+    int getBlankColumn() const {return(blankC);}
 };
 
 class compare{

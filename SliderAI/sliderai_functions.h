@@ -6,13 +6,15 @@
 //  Copyright © 2017 Stephen. All rights reserved.
 //
 
+// NOT USING THIS FILE, currently only to reference old functions
+
 #ifndef sliderai_functions_h
 #define sliderai_functions_h
 
 
 #include <vector>
 #include <iostream>
-#include "sliderai.h"
+
 
 using namespace std;
 
