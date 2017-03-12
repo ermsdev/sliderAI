@@ -60,7 +60,6 @@ bool isSolvable(const board startingBoard){
         }
     }
     
-    cout << inversion_count << endl;
     if(numRows != numColumns){
         cout << "This version of the solver only supports square boards at this time" << endl;
     }
@@ -68,13 +67,15 @@ bool isSolvable(const board startingBoard){
         isSolvable = true;
     }
     else if((numRows % 2) == 0){    //! Checking if board is divisible by 2 (even)
-        if((inversion_count % 2) == 0){ //! Checking if even number of inversions
-            if((startingBoard.getBlankRow() % 2 == 0) && (inversion_count % 2 != 0)){ //! Checking if on even row and number of inversions is odd
-                isSolvable = true;
-            }
-        }
-        else if((startingBoard.getBlankColumn() % 2 == 1) && (inversion_count % 2 == 0)){
+        if(((startingBoard.getBlankRow() + 2) % 2 == 0) && (inversion_count % 2 != 0)){ //! Checking if on even row and number of inversions is odd
             isSolvable = true;
+        }
+        else if(((startingBoard.getBlankRow() + 2) % 2 == 1) && (inversion_count % 2 == 0)){
+            isSolvable = true;
+            cout << "2" << endl;
+        }
+        else{
+            isSolvable = false;
         }
     }
     else{   //! Some check to see if something strange happened when determining if board is even or odd
@@ -89,8 +90,8 @@ bool isSolvable(const board startingBoard){
 
 //-----------------------------------------------------
 
-//vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
-vector<vector<int>> board::goal = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};; //setting static goal
+vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
+//vector<vector<int>> board::goal = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}};; //setting static goal
 
 
 int main (){
@@ -99,7 +100,7 @@ int main (){
     priority_queue<board, deque<board>, compare> boardList;
     //vector<vector<int>> startLayout = {{0,1,3},{4,2,6},{7,5,8}}; // solves in 4 moves: R, D, D, R
     //vector<vector<int>> startLayout = {{1,0,3},{4,2,5},{7,8,6}};
-    //vector<vector<int>> startLayout = {{5,0,7},{8,2,3},{1,4,6}}; // solves in less than 38 moves
+    vector<vector<int>> startLayout = {{5,0,7},{8,2,3},{1,4,6}}; // solves in less than 38 moves
     //vector<vector<int>> startLayout = {{1,2,3},{4,5,6},{7,0,8}};
     /*
      vector<vector<int>> startLayout = {{2,8,3},
@@ -128,12 +129,18 @@ int main (){
     */
     //vector<vector<int>> startLayout = {{5,1,3,4},{0,2,6,8},{9,10,7,11},{13,14,15,12}};
     //vector<vector<int>> startLayout = {{1,2,3,4},{5,6,7,8},{9,10,0,12},{13,14,11,15}};
-    
+    /*
     vector<vector<int>> startLayout = {{1,2,3,4},
                                        {5,6,7,8},
                                        {9,10,11,12},
                                        {13,14,15,0}};
-    
+    */
+    /*
+    vector<vector<int>> startLayout = {{3,9,1,15}, // Impossible to solve board
+                                      {14,11,4,6},
+                                      {13,0,10,12},
+                                      {2,7,8,5}};
+    */
     board startBoard(startLayout);
     bool canSolveBoard = isSolvable(startBoard);
     if(canSolveBoard){
