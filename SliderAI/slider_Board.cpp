@@ -23,6 +23,13 @@
  }
  */
 
+board::board(vector<vector<int>> goalLayout, vector<vector<int>> unsolvedLayout){
+    goal = goalLayout;
+    layout = unsolvedLayout;
+    size = goal.size();
+    FindandSetBlank();
+}
+
 board::board(vector<vector<int>> l, char m, int pMov, vector<char> priorMoves){
     layout = l;
     move = m;
@@ -32,6 +39,10 @@ board::board(vector<vector<int>> l, char m, int pMov, vector<char> priorMoves){
     if(m != NULL){
         pastMoves.push_back(m);
     }
+    FindandSetBlank();
+}
+
+void board::FindandSetBlank(void){
     //updates the blank tile location, I would make it a function, but this is the only usage:
     for (int i=0; i<layout.size(); i++) {
         for (int j=0; j<layout.at(i).size(); j++) {
@@ -146,6 +157,8 @@ void board::coutBoard(){
         cout << endl;
     }
 }
+
+
 
 /*
  board& board::operator=(const board& rightSide){

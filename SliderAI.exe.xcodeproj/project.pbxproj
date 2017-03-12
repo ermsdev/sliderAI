@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		933F923D1E73830E00B18DEB /* slider_Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 933F923C1E73830E00B18DEB /* slider_Board.cpp */; };
 		933F92401E73859600B18DEB /* sliderai_functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 933F923E1E73859600B18DEB /* sliderai_functions.cpp */; };
+		933F92431E75DACD00B18DEB /* sliderai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 933F92411E75DACD00B18DEB /* sliderai.cpp */; };
 		DC41E4A41E5C03BC0080DFB3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC41E4A31E5C03BC0080DFB3 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,8 @@
 		933F923C1E73830E00B18DEB /* slider_Board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = slider_Board.cpp; sourceTree = "<group>"; };
 		933F923E1E73859600B18DEB /* sliderai_functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sliderai_functions.cpp; sourceTree = "<group>"; };
 		933F923F1E73859600B18DEB /* sliderai_functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sliderai_functions.h; sourceTree = "<group>"; };
+		933F92411E75DACD00B18DEB /* sliderai.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sliderai.cpp; sourceTree = "<group>"; };
+		933F92421E75DACD00B18DEB /* sliderai.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sliderai.hpp; sourceTree = "<group>"; };
 		DC41E4A01E5C03BC0080DFB3 /* SliderAI.exe */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SliderAI.exe; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC41E4A31E5C03BC0080DFB3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,6 +71,8 @@
 				933F923C1E73830E00B18DEB /* slider_Board.cpp */,
 				933F923E1E73859600B18DEB /* sliderai_functions.cpp */,
 				933F923F1E73859600B18DEB /* sliderai_functions.h */,
+				933F92411E75DACD00B18DEB /* sliderai.cpp */,
+				933F92421E75DACD00B18DEB /* sliderai.hpp */,
 			);
 			path = SliderAI;
 			sourceTree = "<group>";
@@ -132,6 +137,7 @@
 			files = (
 				933F92401E73859600B18DEB /* sliderai_functions.cpp in Sources */,
 				DC41E4A41E5C03BC0080DFB3 /* main.cpp in Sources */,
+				933F92431E75DACD00B18DEB /* sliderai.cpp in Sources */,
 				933F923D1E73830E00B18DEB /* slider_Board.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
