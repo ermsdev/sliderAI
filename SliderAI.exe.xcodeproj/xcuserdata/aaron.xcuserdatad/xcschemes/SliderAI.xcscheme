@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DC41E49F1E5C03BC0080DFB3"
-               BuildableName = "SliderAI"
+               BuildableName = "SliderAI.exe"
                BlueprintName = "SliderAI"
-               ReferencedContainer = "container:SliderAI.xcodeproj">
+               ReferencedContainer = "container:SliderAI.exe.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DC41E49F1E5C03BC0080DFB3"
-            BuildableName = "SliderAI"
+            BuildableName = "SliderAI.exe"
             BlueprintName = "SliderAI"
-            ReferencedContainer = "container:SliderAI.xcodeproj">
+            ReferencedContainer = "container:SliderAI.exe.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DC41E49F1E5C03BC0080DFB3"
-            BuildableName = "SliderAI"
+            BuildableName = "SliderAI.exe"
             BlueprintName = "SliderAI"
-            ReferencedContainer = "container:SliderAI.xcodeproj">
+            ReferencedContainer = "container:SliderAI.exe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DC41E49F1E5C03BC0080DFB3"
-            BuildableName = "SliderAI"
+            BuildableName = "SliderAI.exe"
             BlueprintName = "SliderAI"
-            ReferencedContainer = "container:SliderAI.xcodeproj">
+            ReferencedContainer = "container:SliderAI.exe.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

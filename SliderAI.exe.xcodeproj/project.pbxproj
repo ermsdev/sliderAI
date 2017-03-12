@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		93E52AC81E611FC600D3D3A6 /* sliderai_functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93E52AC71E611FC600D3D3A6 /* sliderai_functions.cpp */; };
-		DC0EEE331E5D2D6700E2AC47 /* sliderai.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC0EEE321E5D2D6700E2AC47 /* sliderai.cpp */; };
+		933F923D1E73830E00B18DEB /* slider_Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 933F923C1E73830E00B18DEB /* slider_Board.cpp */; };
+		933F92401E73859600B18DEB /* sliderai_functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 933F923E1E73859600B18DEB /* sliderai_functions.cpp */; };
 		DC41E4A41E5C03BC0080DFB3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC41E4A31E5C03BC0080DFB3 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -25,12 +25,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		93E52AC61E611FB000D3D3A6 /* sliderai_functions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sliderai_functions.h; sourceTree = "<group>"; };
-		93E52AC71E611FC600D3D3A6 /* sliderai_functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sliderai_functions.cpp; sourceTree = "<group>"; };
-		DC0EEE321E5D2D6700E2AC47 /* sliderai.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sliderai.cpp; path = ../../sliderAI/SliderAI/sliderai.cpp; sourceTree = "<group>"; };
-		DC41E4A01E5C03BC0080DFB3 /* SliderAI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SliderAI; sourceTree = BUILT_PRODUCTS_DIR; };
+		933F923B1E7382F300B18DEB /* slider_Board.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = slider_Board.h; sourceTree = "<group>"; };
+		933F923C1E73830E00B18DEB /* slider_Board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = slider_Board.cpp; sourceTree = "<group>"; };
+		933F923E1E73859600B18DEB /* sliderai_functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sliderai_functions.cpp; sourceTree = "<group>"; };
+		933F923F1E73859600B18DEB /* sliderai_functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sliderai_functions.h; sourceTree = "<group>"; };
+		DC41E4A01E5C03BC0080DFB3 /* SliderAI.exe */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SliderAI.exe; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC41E4A31E5C03BC0080DFB3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		DCD7E9071E5C0D330037FD6B /* sliderai.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sliderai.h; path = ../../sliderAI/SliderAI/sliderai.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +55,7 @@
 		DC41E4A11E5C03BC0080DFB3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DC41E4A01E5C03BC0080DFB3 /* SliderAI */,
+				DC41E4A01E5C03BC0080DFB3 /* SliderAI.exe */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,10 +64,10 @@
 			isa = PBXGroup;
 			children = (
 				DC41E4A31E5C03BC0080DFB3 /* main.cpp */,
-				DCD7E9071E5C0D330037FD6B /* sliderai.h */,
-				93E52AC61E611FB000D3D3A6 /* sliderai_functions.h */,
-				93E52AC71E611FC600D3D3A6 /* sliderai_functions.cpp */,
-				DC0EEE321E5D2D6700E2AC47 /* sliderai.cpp */,
+				933F923B1E7382F300B18DEB /* slider_Board.h */,
+				933F923C1E73830E00B18DEB /* slider_Board.cpp */,
+				933F923E1E73859600B18DEB /* sliderai_functions.cpp */,
+				933F923F1E73859600B18DEB /* sliderai_functions.h */,
 			);
 			path = SliderAI;
 			sourceTree = "<group>";
@@ -89,7 +89,7 @@
 			);
 			name = SliderAI;
 			productName = SliderAI;
-			productReference = DC41E4A01E5C03BC0080DFB3 /* SliderAI */;
+			productReference = DC41E4A01E5C03BC0080DFB3 /* SliderAI.exe */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -108,7 +108,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DC41E49B1E5C03BC0080DFB3 /* Build configuration list for PBXProject "SliderAI" */;
+			buildConfigurationList = DC41E49B1E5C03BC0080DFB3 /* Build configuration list for PBXProject "SliderAI.exe" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -130,9 +130,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93E52AC81E611FC600D3D3A6 /* sliderai_functions.cpp in Sources */,
-				DC0EEE331E5D2D6700E2AC47 /* sliderai.cpp in Sources */,
+				933F92401E73859600B18DEB /* sliderai_functions.cpp in Sources */,
 				DC41E4A41E5C03BC0080DFB3 /* main.cpp in Sources */,
+				933F923D1E73830E00B18DEB /* slider_Board.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,7 +231,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = QLANSS4ZCP;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME).exe";
 			};
 			name = Debug;
 		};
@@ -240,14 +240,14 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = QLANSS4ZCP;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME).exe";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DC41E49B1E5C03BC0080DFB3 /* Build configuration list for PBXProject "SliderAI" */ = {
+		DC41E49B1E5C03BC0080DFB3 /* Build configuration list for PBXProject "SliderAI.exe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DC41E4A51E5C03BC0080DFB3 /* Debug */,
