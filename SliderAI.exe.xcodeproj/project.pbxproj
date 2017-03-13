@@ -10,7 +10,6 @@
 		933F923D1E73830E00B18DEB /* slider_Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 933F923C1E73830E00B18DEB /* slider_Board.cpp */; };
 		933F92401E73859600B18DEB /* sliderai_functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 933F923E1E73859600B18DEB /* sliderai_functions.cpp */; };
 		DC41E4A41E5C03BC0080DFB3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DC41E4A31E5C03BC0080DFB3 /* main.cpp */; };
-		DCAF80701E770E76003E8F87 /* raylib_implementation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DCAF806E1E770E76003E8F87 /* raylib_implementation.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,8 +31,6 @@
 		933F923F1E73859600B18DEB /* sliderai_functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sliderai_functions.h; sourceTree = "<group>"; };
 		DC41E4A01E5C03BC0080DFB3 /* SliderAI.exe */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SliderAI.exe; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC41E4A31E5C03BC0080DFB3 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		DCAF806E1E770E76003E8F87 /* raylib_implementation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = raylib_implementation.cpp; sourceTree = "<group>"; };
-		DCAF806F1E770E76003E8F87 /* raylib_implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = raylib_implementation.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,8 +67,6 @@
 				933F923B1E7382F300B18DEB /* slider_Board.h */,
 				933F923C1E73830E00B18DEB /* slider_Board.cpp */,
 				933F923E1E73859600B18DEB /* sliderai_functions.cpp */,
-				DCAF806E1E770E76003E8F87 /* raylib_implementation.cpp */,
-				DCAF806F1E770E76003E8F87 /* raylib_implementation.h */,
 				933F923F1E73859600B18DEB /* sliderai_functions.h */,
 			);
 			path = SliderAI;
@@ -137,7 +132,6 @@
 			files = (
 				933F92401E73859600B18DEB /* sliderai_functions.cpp in Sources */,
 				DC41E4A41E5C03BC0080DFB3 /* main.cpp in Sources */,
-				DCAF80701E770E76003E8F87 /* raylib_implementation.cpp in Sources */,
 				933F923D1E73830E00B18DEB /* slider_Board.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

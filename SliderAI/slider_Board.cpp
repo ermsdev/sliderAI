@@ -70,7 +70,7 @@ int board::scoreBoard(){
     return score;
 }
 
-vector<board> board::spawnChildren(const vector< vector<int>> &boardLayout){
+vector<board> board::spawnChildren(){
     //void board::spawnChildren(const vector< vector<int>> &boardLayout, vector<board> &children){
     //children.clear(); // clearing old children and freeing up memory
     vector<board> children;
@@ -84,7 +84,7 @@ vector<board> board::spawnChildren(const vector< vector<int>> &boardLayout){
         }
     }
     { //down
-        if ((blankR+1)< boardLayout.size()) {
+        if ((blankR+1)< size) {
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR+1][blankC];
             childLayout[blankR+1][blankC] = layout[blankR][blankC];
@@ -102,7 +102,7 @@ vector<board> board::spawnChildren(const vector< vector<int>> &boardLayout){
         }
     }
     { //right
-        if ((blankC+1)<boardLayout[0].size()) {
+        if ((blankC+1)<size) {
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR][blankC+1];
             childLayout[blankR][blankC+1] = layout[blankR][blankC];

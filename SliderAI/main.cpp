@@ -15,9 +15,9 @@ using namespace std;
 
 // Unfinished components {
 
+
+/*
 void consoleEntry(board &unsolvedBoard); //! Called to enter puzzle
-
-
 void consoleEntry(board &unsolvedBoard){
     int size;
     cout << "Please enter the number of rows/columns you would like to use: ";
@@ -25,6 +25,32 @@ void consoleEntry(board &unsolvedBoard){
     cin.ignore();
     cout << endl;
     cout << "You entered: " << size << " we will now solve a " << size << "x" << size << " puzzle" << endl;
+}
+*/
+
+board::board(){
+    move = NULL;
+    do{
+        cout << "Please enter the number of rows/columns you would like to use: ";
+        cin >> size;
+    }while(!cin);
+    cin.ignore();
+    cout << endl;
+    cout << "You entered: " << size << " we will now solve a " << size << "x" << size << " puzzle" << endl;
+    do {
+        cout << "Enter your layout as a list of " << size*size << " integers seperated by spaces: ";
+        for (int i=0; i<size; i++) {
+            layout.push_back(vector<int>(size, 0));
+            for (int j=0; j<size; j++) {
+                cin >> layout[i][j];
+                if (layout[i][j] == 0) {
+                    blankR = i;
+                    blankC = j;
+                }
+            }
+        }
+    }while(!cin);
+    
 }
 
 bool board::isSolvable(/*const board startingBoard */){
@@ -93,8 +119,8 @@ bool board::isSolvable(/*const board startingBoard */){
 
 //-----------------------------------------------------
 
-//vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
-vector<vector<int>> board::goal = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}}; //setting static goal
+vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
+//vector<vector<int>> board::goal = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}}; //setting static goal
 
 
 int main (){
@@ -130,7 +156,7 @@ int main (){
                                        {4,5,6},
                                        {7,8,0}};
     */
-    vector<vector<int>> startLayout = {{5,1,3,4},{0,2,6,8},{9,10,7,11},{13,14,15,12}};
+    //vector<vector<int>> startLayout = {{5,1,3,4},{0,2,6,8},{9,10,7,11},{13,14,15,12}};
     //vector<vector<int>> startLayout = {{1,2,3,4},{5,6,7,8},{9,10,0,12},{13,14,11,15}};
     /*
     vector<vector<int>> startLayout = {{1,2,3,4},
@@ -144,7 +170,8 @@ int main (){
                                       {13,0,10,12},
                                       {2,7,8,5}};
     */
-    board startBoard(startLayout);
+    //board startBoard(startLayout);
+    board startBoard;
     bool canSolveBoard = /*isSolvable(startBoard)*/startBoard.isSolvable();
     if(canSolveBoard){
         cout << "This is a valid board" << endl;
@@ -163,7 +190,7 @@ int main (){
         board poppedBoard(boardList.top());
         boardList.pop();
         
-        childBoards = poppedBoard.spawnChildren(startLayout);
+        childBoards = poppedBoard.spawnChildren();
         for (int i=0; i<childBoards.size(); i++) {
             {
                 //if ((childBoards.at(i).getLayout() != lastParent.getLayout()) && (childBoards.at(i).scoreBoard() < lastParent.scoreBoard())){

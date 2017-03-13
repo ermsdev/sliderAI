@@ -31,9 +31,10 @@ public:
     //board();
     board(vector<vector<int>> l, char m = NULL, vector<char> pastMoves = {});
     board(board const &b);
+    board();
     int scoreBoard();
     //void spawnChildren(const vector< vector<int>> &boardLayout, vector<board> &children);
-    vector<board> spawnChildren(const vector< vector<int>> &boardLayout);
+    vector<board> spawnChildren();
     vector<vector<int>> getLayout() const {return layout;}
     bool isGoal();
     bool isSameAs(board& b);
