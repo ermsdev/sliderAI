@@ -9,8 +9,11 @@
 #ifndef slider_Board_h
 #define slider_Board_h
 
+#include <iostream>
 #include <vector>
 #include <string>
+#include <queue>
+#include <ctime>
 
 using namespace std;
 
@@ -45,6 +48,8 @@ public:
     vector<char> getPastMoves(){return(pastMoves);}
     int getBlankRow() const {return(blankR);}
     int getBlankColumn() const {return(blankC);}
+    bool isSolvable();
+    void setGoal(vector<vector<int>> g){goal = g;}
     
 };
 
