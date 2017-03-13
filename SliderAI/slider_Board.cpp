@@ -2,8 +2,8 @@
 //  slider_Board.cpp
 //  SliderAI.exe
 //
-//  Created by Aaron Covrig on 3/10/17.
-//  Copyright © 2017 Stephen. All rights reserved.
+//  Aaron Covrig
+//  Stephen Ermshar
 //
 
 #include <stdio.h>
@@ -23,10 +23,10 @@
  }
  */
 
-board::board(vector<vector<int>> l, char m, int pMov, vector<char> priorMoves){
+board::board(vector<vector<int>> l, char m, vector<char> priorMoves){
     layout = l;
     move = m;
-    previousMoveCount = pMov;
+    //previousMoveCount = pMov;
     size = l.size();
     pastMoves = priorMoves;
     if(m != NULL){
@@ -50,7 +50,7 @@ board::board(board const &b){
     layout = b.layout;
     move = b.move;
     pastMoves = b.pastMoves;
-    previousMoveCount = b.previousMoveCount;
+    //previousMoveCount = b.previousMoveCount;
 }
 
 int board::scoreBoard(){
@@ -69,7 +69,8 @@ int board::scoreBoard(){
         }
     }
     //cout << "score: " << score << endl;
-    score += previousMoveCount;
+    //score += previousMoveCount;
+    score += pastMoves.size();
     return score;
 }
 
@@ -82,7 +83,7 @@ vector<board> board::spawnChildren(const vector< vector<int>> &boardLayout){
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR-1][blankC];
             childLayout[blankR-1][blankC] = layout[blankR][blankC];
-            board childBoard(childLayout, 'U', previousMoveCount++, pastMoves);
+            board childBoard(childLayout, 'U', pastMoves);
             children.push_back(childBoard);
         }
     }
@@ -91,7 +92,7 @@ vector<board> board::spawnChildren(const vector< vector<int>> &boardLayout){
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR+1][blankC];
             childLayout[blankR+1][blankC] = layout[blankR][blankC];
-            board childBoard(childLayout, 'D', previousMoveCount++, pastMoves);
+            board childBoard(childLayout, 'D', pastMoves);
             children.push_back(childBoard);
         }
     }
@@ -100,7 +101,7 @@ vector<board> board::spawnChildren(const vector< vector<int>> &boardLayout){
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR][blankC-1];
             childLayout[blankR][blankC-1] = layout[blankR][blankC];
-            board childBoard(childLayout, 'L', previousMoveCount++, pastMoves);
+            board childBoard(childLayout, 'L', pastMoves);
             children.push_back(childBoard);
         }
     }
@@ -109,7 +110,7 @@ vector<board> board::spawnChildren(const vector< vector<int>> &boardLayout){
             vector<vector<int>> childLayout = layout;
             childLayout[blankR][blankC] = layout[blankR][blankC+1];
             childLayout[blankR][blankC+1] = layout[blankR][blankC];
-            board childBoard(childLayout, 'R', previousMoveCount++, pastMoves);
+            board childBoard(childLayout, 'R', pastMoves);
             children.push_back(childBoard);
         }
     }

@@ -2,8 +2,8 @@
 //  slider_Board.h
 //  SliderAI.exe
 //
-//  Created by Aaron Covrig on 3/10/17.
-//  Copyright © 2017 Stephen. All rights reserved.
+//  Aaron Covrig
+//  Stephen Ermshar
 //
 
 #ifndef slider_Board_h
@@ -20,13 +20,13 @@ private:
     int blankC;
     vector<vector<int>> layout;
     char move; //character indicating what move was used to get to this board, null for first board
-    int previousMoveCount; //I forgot about this part of the algotithm, the correct scoring function is (manhattan + previousMoveCount)
+    //int previousMoveCount; //I forgot about this part of the algotithm, the correct scoring function is (manhattan + previousMoveCount)
     long size;
     vector<char> pastMoves;
 public:
     static vector<vector<int>> goal;
     //board();
-    board(vector<vector<int>> l, char m = NULL, int pMov = 0, vector<char> pastMoves = {});
+    board(vector<vector<int>> l, char m = NULL, vector<char> pastMoves = {});
     board(board const &b);
     int scoreBoard();
     //void spawnChildren(const vector< vector<int>> &boardLayout, vector<board> &children);
@@ -39,12 +39,13 @@ public:
     //board& operator=(const board& rightSide);
     vector<vector<int>> getLayout(){return layout;}
     void setLayout(vector<vector<int>> l){layout = l;}
-    int get_pMov(){return previousMoveCount;}
+    //int get_pMov(){return previousMoveCount;}
     long getSize() const {return(size);}
     long getMoveCount() const {return(pastMoves.size());}
     vector<char> getPastMoves(){return(pastMoves);}
     int getBlankRow() const {return(blankR);}
     int getBlankColumn() const {return(blankC);}
+    
 };
 
 class compare{

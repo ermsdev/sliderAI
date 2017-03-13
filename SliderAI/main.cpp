@@ -175,7 +175,7 @@ int main (){
         poppedBoard.coutBoard();
         cout << "score: " << poppedBoard.scoreBoard() << endl;
         cout << "move: " << poppedBoard.getMove() << endl;
-        cout << "count: " << poppedBoard.get_pMov() << endl << endl;
+        cout << "count: " << poppedBoard.getMoveCount() << endl << endl;
         
         if(foundGoal){
             finalBoard = poppedBoard; // some weird work around to get the actual final board
