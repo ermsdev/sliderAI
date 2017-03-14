@@ -169,7 +169,7 @@ void board::coutBoard(){
     }
 }
 
-int board::inversionCount(void){
+int board::inversionCount(void) const {
     vector<vector<int>> search_board = layout;
     int target = 0;
     int present = 0;
@@ -280,9 +280,10 @@ bool board::isSolvable(){
     return(isSolvable);
 }
 
-void board::writeFile(string filename, const board &startBoard){
+void board::writeFile(const board &referenceBoard, string filename){
     ofstream outputFile;
     outputFile.open (filename);
+    /*
     if ( !outputFile ) {
         cout << "Unable to openfile, will try again" << endl;
         if ( !outputFile ) {
@@ -290,6 +291,7 @@ void board::writeFile(string filename, const board &startBoard){
             return; // Won't write output to file
         }
     }
+    */
     // Outputing the Goal layout
     outputFile << "Goal board:\n";
     outputFile << "----------Begin----------\n";
@@ -301,15 +303,15 @@ void board::writeFile(string filename, const board &startBoard){
     }
     outputFile << "-----------End-----------\n";
     // Outputing the intial board layout
-    outputFile << "Inital board:\n";
+    outputFile << "Initial board:\n";
     outputFile << "----------Begin----------\n";
-    for (int i=0; i<layout.size(); i++) {
-        for (int j=0; j<layout.at(i).size(); j++) {
-            outputFile << layout.at(i).at(j) << '\t';
+    for (int i=0; i<referenceBoard.getLayout().size(); i++) {
+        for (int j=0; j<referenceBoard.getLayout().at(i).size(); j++) {
+            outputFile << referenceBoard.getLayout().at(i).at(j) << '\t';
         }
         outputFile << endl;
     }
-    outputFile << "Board complexity: " << startBoard.inversionCount() << " total inversions \n";
+    outputFile << "Board complexity: " << referenceBoard.inversionCount() << " total inversions \n";
     outputFile << "-----------End-----------\n";
     outputFile << "Moves needed to solve board:\n";
     outputFile << "----------Begin----------\n";

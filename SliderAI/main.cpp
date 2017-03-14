@@ -31,6 +31,7 @@ int main (){
     bool canSolveBoard = startBoard.isSolvable();
     if(canSolveBoard){
         cout << "This is a valid board" << endl;
+        cout << "Solving: " << endl;
     }
     else{
         cout << "This board can not be solved" << endl;
@@ -59,10 +60,13 @@ int main (){
         
         foundGoal = poppedBoard.isGoal();
         moveCount++;
+        
+        /*
         poppedBoard.coutBoard();
         cout << "score: " << poppedBoard.scoreBoard() << endl;
         cout << "move: " << poppedBoard.getMove() << endl;
         cout << "count: " << poppedBoard.getMoveCount() << endl << endl;
+        */
         
         if(foundGoal){
             finalBoard = poppedBoard; // some weird work around to get the actual final board
@@ -81,7 +85,7 @@ int main (){
     for(int i = 0; i < finalBoard.getMoveCount(); i++){
         cout << pastMoveList[i] << endl;
     }
-    finalBoard.writeFile();
+    finalBoard.writeFile(startBoard);
     
     return 0;
 }
