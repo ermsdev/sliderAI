@@ -27,30 +27,34 @@ private:
     vector<char> pastMoves;
 public:
     static vector<vector<int>> goal;
-    //board();
+    //------------------------------
+    // constructors
+    //------------------------------
     board(vector<vector<int>> l, char m = NULL, vector<char> pastMoves = {});
     board(board const &b);
     board();
-    int scoreBoard();
-    //void spawnChildren(const vector< vector<int>> &boardLayout, vector<board> &children);
-    vector<board> spawnChildren();
-    vector<vector<int>> getLayout() const {return layout;}
-    bool isGoal();
-    bool isSameAs(board& b);
+    //------------------------------
+    // accessor / mutator functions
+    //------------------------------
     char getMove(){return move;}
-    void coutBoard();
-    //board& operator=(const board& rightSide);
     vector<vector<int>> getLayout(){return layout;}
-    void setLayout(vector<vector<int>> l){layout = l;}
-    //int get_pMov(){return previousMoveCount;}
     long getSize() const {return(size);}
     long getMoveCount() const {return(pastMoves.size());}
     vector<char> getPastMoves(){return(pastMoves);}
     int getBlankRow() const {return(blankR);}
     int getBlankColumn() const {return(blankC);}
-    bool isSolvable();
+    vector<vector<int>> getLayout() const {return layout;}
+    void setLayout(vector<vector<int>> l){layout = l;}
     void setGoal(vector<vector<int>> g){goal = g;}
-    
+    //------------------------------
+    // "the cool part..." functions
+    //------------------------------
+    int scoreBoard();
+    vector<board> spawnChildren();
+    bool isGoal();
+    bool isSameAs(board& b);
+    void coutBoard();
+    bool isSolvable();
 };
 
 class compare{

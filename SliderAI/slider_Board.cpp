@@ -9,16 +9,6 @@
 #include <stdio.h>
 #include "slider_Board.h"
 
-/*
- board::board(){
- layout = {{NULL,NULL,NULL},{NULL,NULL,NULL},{NULL,NULL,NULL}};// this constructor makes a null board, if it gets used without being edited it should throw an error
- blankR = NULL;
- blankC = NULL;
- move = NULL;
- 
- }
- */
-
 board::board(vector<vector<int>> l, char m, vector<char> priorMoves){
     layout = l;
     move = m;
