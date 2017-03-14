@@ -2,20 +2,32 @@
 //  main.cpp
 //  SliderAI
 //
+//  Aaron Covrig
+//  Stephen Ermshar
+//
 
 #include "slider_Board.h"
 
 using namespace std;
 
-vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
+//vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
 //vector<vector<int>> board::goal = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}}; //setting static goal
+vector<vector<int>> board::goal = {{0}}; //setting static goal
+
+
+
+
+
+
+
 
 int main (){
     //clock_t begin = clock();
     // setting up queue and putting initial state in
-    priority_queue<board, deque<board>, compare> boardList;
+    //priority_queue<board, deque<board>, compare> boardList;
     //board startBoard(startLayout);
     board startBoard;
+    priority_queue<board, deque<board>, compare> boardList;
     bool canSolveBoard = startBoard.isSolvable();
     if(canSolveBoard){
         cout << "This is a valid board" << endl;

@@ -156,6 +156,15 @@ board::board(){
             }
         }
     }while(!cin);
+    goal = layout;
+    int goalmaker = 1;
+    for (int i = 0; i<size; i++) {
+        for (int j = 0; j<size; j++) {
+            goal[i][j] = goalmaker;
+            goalmaker++;
+        }
+    }
+    goal[size-1][size-1] = 0;
     score = scoreBoard();
 }
 
