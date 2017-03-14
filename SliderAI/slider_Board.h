@@ -14,6 +14,7 @@
 #include <string>
 #include <queue>
 #include <ctime>
+#include <fstream>
 
 using namespace std;
 
@@ -56,7 +57,10 @@ public:
     bool isGoal();
     bool isSameAs(board& b);
     void coutBoard();
+    int inversionCount(void);
     bool isSolvable();
+    void writeFile(string filename = "sliderAIoutput.txt", const board &startBoard);
+    
 };
 
 class compare{
