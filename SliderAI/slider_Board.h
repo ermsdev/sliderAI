@@ -55,9 +55,9 @@ public:
     bool isGoal();
     bool isSameAs(board& b);
     void coutBoard();
+    int inversionCount(void);
     bool isSolvable();
-    void setGoal(vector<vector<int>> g){goal = g;}
-    void writeFile(string filename = "sliderAIoutput.txt");
+    void writeFile(string filename = "sliderAIoutput.txt", const board &startBoard);
     
 };
 

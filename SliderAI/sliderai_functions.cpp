@@ -422,9 +422,6 @@ bool isSolvable(const vector<vector <int > > &search_board, const vector <vector
                             break;
                         }
                         present = search_board[y][z];
-                        //cout << "Target: " << target << endl;
-                        //cout << "Present: " << present << endl;
-                        //cout << "Inversion count: " << inversion_count << endl;
                         if(present > target){
                             inversion_count++;
                         }
