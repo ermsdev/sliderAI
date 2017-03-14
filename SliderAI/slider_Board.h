@@ -57,7 +57,7 @@ public:
     bool isGoal(void);
     bool isSameAs(board& b);
     void coutBoard(void);
-    int inversionCount(void) const;
+    long inversionCount(void) const;
     bool isSolvable(void);
     void writeFile(const board &referenceBoard, string filename = "sliderAIoutput.txt");
     

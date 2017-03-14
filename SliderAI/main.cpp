@@ -12,17 +12,11 @@ using namespace std;
 
 //vector<vector<int>> board::goal = {{1,2,3},{4,5,6},{7,8,0}}; //setting static goal
 //vector<vector<int>> board::goal = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,0}}; //setting static goal
+
 vector<vector<int>> board::goal = {{0}}; //setting static goal
 
-
-
-
-
-
-
-
 int main (){
-    //clock_t begin = clock();
+    clock_t begin = clock();
     // setting up queue and putting initial state in
     //priority_queue<board, deque<board>, compare> boardList;
     //board startBoard(startLayout);
@@ -43,6 +37,8 @@ int main (){
     int moveCount = 0;
     bool foundGoal;
     board lastParent(startBoard);
+    board lastGrandParent(startBoard);
+    board lastGreatGrandParent(startBoard);
     board finalBoard = lastParent;
     do{
         board poppedBoard(boardList.top());
@@ -51,7 +47,7 @@ int main (){
         childBoards = poppedBoard.spawnChildren();
         for (int i=0; i<childBoards.size(); i++) {
             {
-                    if(childBoards.at(i).getLayout() != lastParent.getLayout()){
+                    if((childBoards.at(i).getLayout() != lastParent.getLayout()) && (childBoards[i].getLayout() != lastGrandParent.getLayout()) && (childBoards[i].getLayout() != lastGreatGrandParent.getLayout())){
                     boardList.push(childBoards.at(i));
                 }
                 
@@ -61,24 +57,24 @@ int main (){
         foundGoal = poppedBoard.isGoal();
         moveCount++;
         
-        /*
         poppedBoard.coutBoard();
         cout << "score: " << poppedBoard.scoreBoard() << endl;
         cout << "move: " << poppedBoard.getMove() << endl;
         cout << "count: " << poppedBoard.getMoveCount() << endl << endl;
-        */
         
         if(foundGoal){
             finalBoard = poppedBoard; // some weird work around to get the actual final board
         }
         // THIS DOES NOT KEEP BLANK UPDATED! if we decide later that we need to use blank in lastParent we'll have to set that up then.
+        lastGreatGrandParent.setLayout(lastGrandParent.getLayout());
+        lastGrandParent.setLayout(lastParent.getLayout());
         lastParent.setLayout(poppedBoard.getLayout());
     }while(!foundGoal);
     
     cout << "I found the answer in " << moveCount << " moves!\n\n";
-    //clock_t end = clock();
-    //double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-    //cout << elapsed_secs << endl;
+    clock_t end = clock();
+    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    cout << elapsed_secs << endl;
     
     cout << "My real moves needed: " << finalBoard.getMoveCount() << endl;
     vector<char> pastMoveList = finalBoard.getPastMoves();

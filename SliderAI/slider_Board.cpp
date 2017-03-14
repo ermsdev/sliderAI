@@ -65,7 +65,16 @@ board::board(){
             }
         }
     }while(!cin);
-    
+    goal = layout;
+    int goalmaker = 1;
+    for (int i = 0; i<size; i++) {
+        for (int j = 0; j<size; j++) {
+            goal[i][j] = goalmaker;
+            goalmaker++;
+        }
+    }
+    goal[size-1][size-1] = 0;
+    score = scoreBoard();
 }
 
 //! \brief Scores the board based on the Manhattan distance
@@ -169,13 +178,16 @@ void board::coutBoard(){
     }
 }
 
-int board::inversionCount(void) const {
+//! Counting the number of inversions (used to determine if solvable and
+// as a general reference for board complexity (not a perfect method, but
+// works better then nothing at comparing some boards together)
+long board::inversionCount(void) const {
     vector<vector<int>> search_board = layout;
     int target = 0;
     int present = 0;
     long numRows = size;
     long numColumns = numRows; //! This currently limits us to n*n, probably have other areas that do the same
-    int inversion_count = 0;
+    long inversion_count = 0;
     for(int i = 0; i < numRows; i++){
         for(int j = 0; j < numColumns; j++){
             target = goal[i][j];
@@ -189,9 +201,6 @@ int board::inversionCount(void) const {
                             break;
                         }
                         present = search_board[y][z];
-                        //cout << "Target: " << target << endl;
-                        //cout << "Present: " << present << endl;
-                        //cout << "Inversion count: " << inversion_count << endl;
                         if(present > target){
                             inversion_count++;
                         }
@@ -199,60 +208,17 @@ int board::inversionCount(void) const {
                 }
             }
         }
-    }while(!cin);
-    goal = layout;
-    int goalmaker = 1;
-    for (int i = 0; i<size; i++) {
-        for (int j = 0; j<size; j++) {
-            goal[i][j] = goalmaker;
-            goalmaker++;
-        }
-    }
-    goal[size-1][size-1] = 0;
-    score = scoreBoard();
     }
     return(inversion_count);
 }
-/*
-bool board::isSolvable(){
-    bool isSolvable = false;
-    vector<vector<int>> search_board = layout;
-    int target = 0;
-    int present = 0;
-    long numRows = size;
-    long numColumns = numRows; //! This currently limits us to n*n, probably have other areas that do the same
-    int inversion_count = 0;
-    for(int i = 0; i < numRows; i++){
-        for(int j = 0; j < numColumns; j++){
-            target = goal[i][j];
-            if(target != 0){    //! skipping the blank tile
-                for(int y = 0; present != target; y++){
-                    if(y == numRows){
-                        break;
-                    }
-                    for(int z = 0; present != target; z++){
-                        if(z == numColumns){
-                            break;
-                        }
-                        present = search_board[y][z];
-                        //cout << "Target: " << target << endl;
-                        //cout << "Present: " << present << endl;
-                        //cout << "Inversion count: " << inversion_count << endl;
-                        if(present > target){
-                            inversion_count++;
-                        }
-                    }
-                }
-            }
-        }
-    }
- */
+
+//! Determining if the board is actually solvable
 bool board::isSolvable(){
     bool isSolvable = false;
     vector<vector<int>> search_board = layout;
     long numRows = size;
     long numColumns = numRows; //! This currently limits us to n*n, probably have other areas that do the same
-    int inversion_count = inversionCount(); //! Finding the number of inversions
+    long inversion_count = inversionCount(); //! Finding the number of inversions
     
     if(numRows != numColumns){
         cout << "This version of the solver only supports square boards at this time" << endl;
@@ -261,12 +227,11 @@ bool board::isSolvable(){
         isSolvable = true;
     }
     else if((numRows % 2) == 0){    //! Checking if board is divisible by 2 (even)
-        if(((blankR) % 2 == 0) && (inversion_count % 2 != 0)){ //! Checking if on even row and number of inversions is odd
+        if(((blankR +2) % 2 == 0) && (inversion_count % 2 != 0)){ //! Checking if on even row and number of inversions is odd
             isSolvable = true;
         }
-        else if(((blankR) % 2 == 1) && (inversion_count % 2 == 0)){
+        else if(((blankR +2) % 2 == 1) && (inversion_count % 2 == 0)){
             isSolvable = true;
-            cout << "2" << endl;
         }
         else{
             isSolvable = false;
@@ -280,10 +245,15 @@ bool board::isSolvable(){
     return(isSolvable);
 }
 
+//! \brief Writes the output to a file
+//
+// Requires a reference board (we are using the starting board) to
+// determine the inversino count and list the starting layout.
+// The filename paramenter is optional, with the default specified
+// in the header.
 void board::writeFile(const board &referenceBoard, string filename){
     ofstream outputFile;
     outputFile.open (filename);
-    /*
     if ( !outputFile ) {
         cout << "Unable to openfile, will try again" << endl;
         if ( !outputFile ) {
@@ -291,7 +261,6 @@ void board::writeFile(const board &referenceBoard, string filename){
             return; // Won't write output to file
         }
     }
-    */
     // Outputing the Goal layout
     outputFile << "Goal board:\n";
     outputFile << "----------Begin----------\n";
@@ -311,7 +280,7 @@ void board::writeFile(const board &referenceBoard, string filename){
         }
         outputFile << endl;
     }
-    outputFile << "Board complexity: " << referenceBoard.inversionCount() << " total inversions \n";
+    outputFile << "Board inversion count: " << referenceBoard.inversionCount() << " total inversions \n";
     outputFile << "-----------End-----------\n";
     outputFile << "Moves needed to solve board:\n";
     outputFile << "----------Begin----------\n";
