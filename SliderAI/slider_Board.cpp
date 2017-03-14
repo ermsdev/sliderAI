@@ -27,6 +27,7 @@ board::board(vector<vector<int>> l, char m, vector<char> priorMoves){
             }
         }
     }
+    score = scoreBoard();
 }
 
 board::board(board const &b){
@@ -36,6 +37,7 @@ board::board(board const &b){
     layout = b.layout;
     move = b.move;
     pastMoves = b.pastMoves;
+    score = scoreBoard();
     //previousMoveCount = b.previousMoveCount;
 }
 
@@ -154,7 +156,7 @@ board::board(){
             }
         }
     }while(!cin);
-    
+    score = scoreBoard();
 }
 
 bool board::isSolvable(){

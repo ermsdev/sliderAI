@@ -25,6 +25,7 @@ private:
     char move; //character indicating what move was used to get to this board, null for first board
     long size;
     vector<char> pastMoves;
+    int score;
 public:
     static vector<vector<int>> goal;
     //------------------------------
@@ -44,6 +45,7 @@ public:
     int getBlankRow() const {return(blankR);}
     int getBlankColumn() const {return(blankC);}
     vector<vector<int>> getLayout() const {return layout;}
+    int getScore(){return score;}
     void setLayout(vector<vector<int>> l){layout = l;}
     void setGoal(vector<vector<int>> g){goal = g;}
     //------------------------------
@@ -60,7 +62,7 @@ public:
 class compare{
 public:
     bool operator()(board a, board b){
-        return a.scoreBoard() > b.scoreBoard();
+        return a.getScore() > b.getScore();
     }
 };
 
