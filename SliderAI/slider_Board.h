@@ -23,7 +23,6 @@ private:
     int blankC;
     vector<vector<int>> layout;
     char move; //character indicating what move was used to get to this board, null for first board
-    //int previousMoveCount; //I forgot about this part of the algotithm, the correct scoring function is (manhattan + previousMoveCount)
     long size;
     vector<char> pastMoves;
 public:
