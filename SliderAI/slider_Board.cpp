@@ -29,6 +29,7 @@ board::board(vector<vector<int>> l, char m, vector<char> priorMoves){
             }
         }
     }
+    score = scoreBoard();
 }
 
 board::board(board const &b){
@@ -38,6 +39,7 @@ board::board(board const &b){
     layout = b.layout;
     move = b.move;
     pastMoves = b.pastMoves;
+    score = scoreBoard();
     //previousMoveCount = b.previousMoveCount;
 }
 
@@ -197,6 +199,8 @@ int board::inversionCount(void){
                 }
             }
         }
+    }while(!cin);
+    score = scoreBoard();
     }
     return(inversion_count);
 }
