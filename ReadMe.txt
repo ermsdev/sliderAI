@@ -36,8 +36,8 @@ Acknowledgements: - https://www.cs.princeton.edu/courses/archive/spr10/cos226/as
                   - cppreference.com
                   - cplusplus.com
 
-Known bugs:  - No input validation (user can crash program by inputing chars where they should input ints)
-             - 
-             - 
+Known bugs:  - No input validation 
+                  - doesn't prevent the user from putting in chars or strings etc. where they should put in ints
+                  - doesn't check for duplicates when the user inputs the layout
 
 If there are any special instructions to the User for executing the program.
