@@ -106,6 +106,7 @@ int board::scoreBoard(){
     return score;
 }
 
+//! Creates the new children with a slight mutation
 vector<board> board::spawnChildren(){
     vector<board> children;
     { //up
@@ -147,6 +148,7 @@ vector<board> board::spawnChildren(){
     return children;
 }
 
+//! Tests if the board is the target
 bool board::isGoal(){
     for (int i=0; i<layout.size(); i++) {
         for (int j=0; j<layout.at(i).size(); j++) {
@@ -158,6 +160,7 @@ bool board::isGoal(){
     return true;
 }
 
+//! Compares two boards
 bool board::isSameAs(board& b){
     for (int i=0; i<layout.size(); i++) {
         for (int j=0; j<layout.at(i).size(); j++) {
@@ -169,6 +172,7 @@ bool board::isSameAs(board& b){
     return true;
 }
 
+//! Prints out a board
 void board::coutBoard(){
     for (int i=0; i<layout.size(); i++) {
         for (int j=0; j<layout.at(i).size(); j++) {

@@ -41,3 +41,6 @@ Known bugs:  - No input validation
                   - doesn't check for duplicates when the user inputs the layout
 
 If there are any special instructions to the User for executing the program.
+	The system currently assumes the last tile of the goal is the target blank tile: [[1, 2, 3],
+											  [4, 5, 6],
+											  [7, 8, 0]]

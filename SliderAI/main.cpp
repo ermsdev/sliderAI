@@ -36,9 +36,15 @@ int main (){
     vector<board> childBoards;
     int moveCount = 0;
     bool foundGoal;
+    
+    //! Relations, used to speed up searches
+    //vector<board> relations;
+    //int totalRelatives = 2;
     board lastParent(startBoard);
     board lastGrandParent(startBoard);
     board lastGreatGrandParent(startBoard);
+    //relations.push_back(lastParent);
+    
     board finalBoard = lastParent;
     do{
         board poppedBoard(boardList.top());
@@ -47,9 +53,16 @@ int main (){
         childBoards = poppedBoard.spawnChildren();
         for (int i=0; i<childBoards.size(); i++) {
             {
-                    if((childBoards.at(i).getLayout() != lastParent.getLayout()) && (childBoards[i].getLayout() != lastGrandParent.getLayout()) && (childBoards[i].getLayout() != lastGreatGrandParent.getLayout())){
+                if((childBoards[i].getLayout() != lastParent.getLayout()) && (childBoards[i].getLayout() != lastGrandParent.getLayout()) && (childBoards[i].getLayout() != lastGreatGrandParent.getLayout())){
                     boardList.push(childBoards.at(i));
                 }
+                /*
+                for(int j = 0; j < relations.size(); j++){
+                    if(childBoards[i].getLayout() != relations[j].getLayout()){
+                        boardList.push(childBoards[i]);
+                    }
+                }
+                */
                 
             }
         }
@@ -68,6 +81,16 @@ int main (){
         // THIS DOES NOT KEEP BLANK UPDATED! if we decide later that we need to use blank in lastParent we'll have to set that up then.
         lastGreatGrandParent.setLayout(lastGrandParent.getLayout());
         lastGrandParent.setLayout(lastParent.getLayout());
+        // Part of broken attempt to allow for dynamic family size control
+        /*
+        if(relations.size() < totalRelatives){
+            relations.push_back(lastParent);
+        }
+        else{
+            relations[0] = lastParent;
+            rotate(relations.begin(), relations.end() -1, relations.end());
+        }
+        */
         lastParent.setLayout(poppedBoard.getLayout());
     }while(!foundGoal);
     
