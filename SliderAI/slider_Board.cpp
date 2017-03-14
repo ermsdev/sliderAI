@@ -7,6 +7,8 @@
 //
 
 #include <stdio.h>
+#include <fstream>
+
 #include "slider_Board.h"
 
 /*
@@ -142,6 +144,19 @@ void board::coutBoard(){
         }
         cout << endl;
     }
+}
+
+void board::writeFile(string filename){
+    ofstream outputFile;
+    outputFile.open (filename);
+    outputFile << "Moves needed to solve board:\n";
+    outputFile << "----------Begin----------\n";
+    vector<char> requiredMoves = getPastMoves();
+    for(int i = 0; i < requiredMoves.size(); i++){
+        outputFile << requiredMoves[i] << "\n";
+    }
+    outputFile << "-----------End-----------\n";
+    outputFile.close();
 }
 
 /*

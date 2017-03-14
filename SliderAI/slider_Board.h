@@ -14,6 +14,7 @@
 #include <string>
 #include <queue>
 #include <ctime>
+#include <fstream>
 
 using namespace std;
 
@@ -51,6 +52,7 @@ public:
     int getBlankColumn() const {return(blankC);}
     bool isSolvable();
     void setGoal(vector<vector<int>> g){goal = g;}
+    void writeFile(string filename = "sliderAIoutput.txt");
     
 };
 

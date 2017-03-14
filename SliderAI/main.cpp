@@ -178,6 +178,7 @@ int main (){
     }
     else{
         cout << "This board can not be solved" << endl;
+        return(0);
     }
     
     boardList.push(startBoard);
@@ -226,6 +227,7 @@ int main (){
     for(int i = 0; i < finalBoard.getMoveCount(); i++){
         cout << pastMoveList[i] << endl;
     }
+    finalBoard.writeFile();
     
     return 0;
 }

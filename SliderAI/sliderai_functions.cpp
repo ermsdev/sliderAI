@@ -440,15 +440,18 @@ bool isSolvable(const vector<vector <int > > &search_board, const vector <vector
     }
     else if(((numColumns % 2) != 0) && ((inversion_count % 2) == 0)){ //! Checking if the board is odd and number of inversions is even
         isSolvable = true;
+        cout << "Number of inversions: " << inversion_count << endl;
     }
     else if((numRows % 2) == 0){    //! Checking if board is divisible by 2 (even)
         if((inversion_count % 2) == 0){ //! Checking if even number of inversions
             if((blankTile.row % 2 == 0) && (inversion_count % 2 != 0)){ //! Checking if on even row and number of inversions is odd
                 isSolvable = true;
+                cout << "Number of inversions: " << inversion_count << endl;
             }
         }
         else if((blankTile.row % 2 == 1) && (inversion_count % 2 == 0)){
             isSolvable = true;
+            cout << "Number of inversions: " << inversion_count << endl;
         }
     }
     else{   //! Some check to see if something strange happened when determining if board is even or odd
